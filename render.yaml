@@ -1,0 +1,14 @@
+# Render Blueprint — one-click deploy of NEXORA
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: nexora
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt && python seed.py"
+    startCommand: "gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 2"
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.1

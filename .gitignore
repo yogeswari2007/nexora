@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+venv/
+.env
+*.log
+
+# Backup of the older frontend (not used by the app — keep out of the repo)
+static/index.orig.html
+
+# Dev/test helper script (can stay if you want, but not required to run the site)
+# e2e_test.py

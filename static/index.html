@@ -1,0 +1,4111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NEXORA | Smart Hotel Booking</title>
+
+<style>
+:root{
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --secondary:#0f172a;
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#172033;
+    --muted:#648b74;
+    --green:#16a34a;
+    --red:#dc2626;
+    --orange:#f59e0b;
+    --border:#e2e8f0;
+    --shadow:0 10px 30px rgba(18, 49, 119, 0.08);
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+header{
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.navbar{
+    max-width:1400px;
+    margin:auto;
+    padding:15px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:900;
+    color:var(--primary);
+    letter-spacing:-1px;
+}
+
+.logo span{
+    color:#0f172a;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#475569;
+    font-weight:600;
+}
+
+.nav-links a:hover{
+    color:var(--primary);
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.language,
+.currency{
+    padding:9px 12px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:white;
+}
+
+.hero{
+    min-height:490px;
+    background:
+      linear-gradient(120deg,rgba(15,23,42,.92),rgba(37,99,235,.75)),
+      linear-gradient(135deg,#0f172a,#2563eb);
+    color:white;
+    display:flex;
+    align-items:center;
+}
+
+.hero-inner{
+    width:100%;
+    max-width:1400px;
+    margin:auto;
+    padding:70px 25px;
+}
+
+.hero h1{
+    font-size:54px;
+    max-width:800px;
+    line-height:1.05;
+    margin-bottom:18px;
+}
+
+.hero p{
+    font-size:19px;
+    color:#dbeafe;
+    max-width:700px;
+    margin-bottom:35px;
+}
+
+.search-box{
+    background:white;
+    padding:15px;
+    border-radius:18px;
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+    color:var(--text);
+    display:grid;
+    grid-template-columns:2fr 1.1fr 1.1fr 1fr 1fr 0.8fr auto;
+    gap:10px;
+    max-width:1250px;
+}
+
+.search-field{
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:12px 14px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.search-field label{
+    font-size:12px;
+    font-weight:700;
+    color:var(--muted);
+}
+
+.search-field input,
+.search-field select{
+    border:0;
+    outline:none;
+    width:100%;
+    background:transparent;
+}
+
+.search-btn{
+    border:0;
+    background:var(--primary);
+    color:white;
+    border-radius:12px;
+    padding:0 25px;
+    font-weight:800;
+}
+
+.search-btn:hover{
+    background:var(--primary-dark);
+}
+
+.quick-features{
+    max-width:1400px;
+    margin:-45px auto 40px;
+    padding:0 25px;
+    position:relative;
+}
+
+.feature-grid{
+    background:white;
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    overflow:hidden;
+}
+
+.feature{
+    padding:25px;
+    text-align:center;
+    border-right:1px solid var(--border);
+}
+
+.feature:last-child{
+    border-right:0;
+}
+
+.feature-icon{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.feature h3{
+    font-size:15px;
+    margin-bottom:5px;
+}
+
+.feature p{
+    font-size:12px;
+    color:var(--muted);
+}
+
+.main{
+    max-width:1400px;
+    margin:auto;
+    padding:20px 25px 70px;
+}
+
+.section-title{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.section-title h2{
+    font-size:30px;
+}
+
+.section-title p{
+    color:var(--muted);
+    margin-top:5px;
+}
+
+.content-layout{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:25px;
+}
+
+.filters{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:var(--shadow);
+    height:max-content;
+    position:sticky;
+    top:90px;
+}
+
+.filters h3{
+    margin-bottom:18px;
+}
+
+.filter-group{
+    border-top:1px solid var(--border);
+    padding:16px 0;
+}
+
+.filter-group:first-of-type{
+    border-top:0;
+}
+
+.filter-group h4{
+    font-size:14px;
+    margin-bottom:12px;
+}
+
+.checkbox{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:9px 0;
+    font-size:14px;
+    color:#475569;
+}
+
+.checkbox input{
+    accent-color:var(--primary);
+}
+
+.range{
+    width:100%;
+    accent-color:var(--primary);
+}
+
+.range-value{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:5px;
+}
+
+.clear-btn{
+    width:100%;
+    padding:11px;
+    border:1px solid var(--border);
+    background:white;
+    border-radius:10px;
+    font-weight:700;
+    color:var(--red);
+}
+
+.results-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+    gap:10px;
+}
+
+.result-count{
+    color:var(--muted);
+}
+
+.sort{
+    padding:10px;
+    border:1px solid var(--border);
+    background:white;
+    border-radius:10px;
+}
+
+.hotel-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.hotel-card{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    transition:.2s;
+    position:relative;
+}
+
+.hotel-card:hover{
+    transform:translateY(-4px);
+}
+
+.hotel-image{
+    height:190px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:50px;
+}
+
+.hotel-image .heart{
+    position:absolute;
+    right:12px;
+    top:12px;
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:50%;
+    background:rgba(255,255,255,.92);
+    font-size:19px;
+}
+
+.hotel-badge{
+    position:absolute;
+    left:12px;
+    bottom:12px;
+    background:#16a34a;
+    color:white;
+    padding:5px 9px;
+    border-radius:7px;
+    font-size:11px;
+    font-weight:800;
+}
+
+.hotel-body{
+    padding:17px;
+}
+
+.hotel-name{
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.location{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:9px;
+}
+
+.rating{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.rating-score{
+    background:#166534;
+    color:white;
+    padding:4px 7px;
+    border-radius:6px;
+    font-size:12px;
+    font-weight:800;
+}
+
+.stars{
+    color:#f59e0b;
+}
+
+.facilities{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px;
+    margin-bottom:13px;
+}
+
+.facility{
+    background:#eff6ff;
+    color:#1d4ed8;
+    border-radius:6px;
+    padding:5px 7px;
+    font-size:10px;
+    font-weight:700;
+}
+
+.facility.access{
+    background:#ecfdf5;
+    color:#047857;
+}
+
+.hotel-details{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    font-size:11px;
+    color:#64748b;
+    margin-bottom:14px;
+}
+
+.price{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:10px;
+}
+
+.price strong{
+    font-size:22px;
+}
+
+.price small{
+    color:var(--muted);
+}
+
+.view-btn{
+    background:var(--primary);
+    color:white;
+    border:0;
+    border-radius:9px;
+    padding:10px 14px;
+    font-weight:800;
+}
+
+.compare-btn{
+    width:100%;
+    margin-top:8px;
+    border:1px solid #bfdbfe;
+    background:#eff6ff;
+    color:#1d4ed8;
+    border-radius:8px;
+    padding:8px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.no-results{
+    background:white;
+    padding:60px;
+    text-align:center;
+    border-radius:18px;
+}
+
+.compare-bar{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#0f172a;
+    color:white;
+    padding:14px 20px;
+    border-radius:15px;
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
+    display:none;
+    z-index:200;
+    min-width:350px;
+}
+
+.compare-bar.show{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.compare-bar button{
+    background:var(--primary);
+    border:0;
+    color:white;
+    padding:9px 14px;
+    border-radius:8px;
+    font-weight:700;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.7);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:500;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-content{
+    background:white;
+    width:min(800px,100%);
+    max-height:90vh;
+    overflow:auto;
+    border-radius:20px;
+    padding:25px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:18px;
+    top:15px;
+    border:0;
+    background:#f1f5f9;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    font-size:18px;
+}
+
+.modal-title{
+    font-size:28px;
+    margin-bottom:5px;
+}
+
+.modal-subtitle{
+    color:var(--muted);
+    margin-bottom:20px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.info-item{
+    padding:14px;
+    background:#f8fafc;
+    border-radius:10px;
+}
+
+.info-item strong{
+    display:block;
+    margin-bottom:4px;
+}
+
+.booking-box{
+    margin-top:20px;
+    padding:20px;
+    background:#eff6ff;
+    border-radius:14px;
+}
+
+.total{
+    font-size:25px;
+    font-weight:900;
+    color:var(--primary);
+}
+
+.book-now{
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    border:0;
+    background:var(--primary);
+    color:white;
+    border-radius:10px;
+    font-weight:900;
+}
+
+.compare-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+.compare-table th,
+.compare-table td{
+    border:1px solid var(--border);
+    padding:12px;
+    text-align:left;
+}
+
+.compare-table th{
+    background:#f8fafc;
+}
+
+footer{
+    background:#0f172a;
+    color:#cbd5e1;
+    padding:50px 25px;
+}
+
+.footer-inner{
+    max-width:1400px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:40px;
+}
+
+footer h3{
+    color:white;
+    margin-bottom:15px;
+}
+
+footer p,
+footer li{
+    font-size:13px;
+    line-height:1.8;
+}
+
+footer ul{
+    list-style:none;
+}
+
+@media(max-width:1100px){
+    .hotel-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .search-box{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .search-btn{
+        padding:14px;
+    }
+}
+
+@media(max-width:800px){
+    .nav-links{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .feature-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .content-layout{
+        grid-template-columns:1fr;
+    }
+
+    .filters{
+        position:relative;
+        top:0;
+    }
+
+    .hotel-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer-inner{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:550px){
+    .navbar{
+        padding:12px 15px;
+    }
+
+    .logo{
+        font-size:22px;
+    }
+
+    .language,
+    .currency{
+        padding:7px;
+        font-size:11px;
+    }
+
+    .hero-inner{
+        padding:50px 15px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .search-box{
+        grid-template-columns:1fr;
+    }
+
+    .quick-features{
+        padding:0 15px;
+    }
+
+    .feature-grid{
+        grid-template-columns:1fr;
+    }
+
+    .main{
+        padding:20px 15px 60px;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer-inner{
+        grid-template-columns:1fr;
+    }
+}
+
+/* ===== NEXORA 7 SPECIAL FEATURES ===== */
+
+/* ===== NEXORA 7 SPECIAL FEATURES ===== */
+.smart-score-strip{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 8px}.smart-score-strip span{font-size:11px}.access-pill{display:inline-block;padding:5px 9px;border-radius:999px;background:#f1f5f9;color:#334155;font-weight:800}.special-card-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:8px}.mini-special{border:1px solid #e2e8f0;background:#fff;border-radius:9px;padding:8px 6px;font-size:12px;font-weight:700}.mini-special:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(15,23,42,.08)}
+.special7{max-width:1400px;margin:28px auto;padding:0 25px}.special7-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.special-card{background:var(--card,#fff);border:1px solid #e5e7eb;border-radius:18px;padding:20px;box-shadow:0 8px 24px rgba(15,23,42,.06)}.special-card h3{margin:8px 0}.special-icon{font-size:30px}.special-card p{color:var(--muted);font-size:14px}.special-btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}.match-pill{display:inline-block;padding:5px 9px;border-radius:999px;background:#dcfce7;color:#166534;font-weight:800;font-size:12px}.eco-pill{display:inline-block;padding:5px 9px;border-radius:999px;background:#ecfccb;color:#365314;font-weight:800;font-size:12px}.trust-pill{display:inline-block;padding:5px 9px;border-radius:999px;background:#dbeafe;color:#1e40af;font-weight:800;font-size:12px}.why-box{margin-top:10px;padding:10px;border-radius:10px;background:#f8fafc;font-size:13px}.alert-btn{background:#fff7ed}.voice-btn{background:#eef2ff}.map-btn{background:#ecfeff}.match-btn{background:#ede9fe}.map-panel{height:380px;border-radius:16px;background:linear-gradient(135deg,#dbeafe,#cffafe);position:relative;overflow:hidden;border:1px solid #bae6fd}.map-grid{position:absolute;inset:0;background-image:linear-gradient(#fff8 1px,transparent 1px),linear-gradient(90deg,#fff8 1px,transparent 1px);background-size:45px 45px}.map-pin{position:absolute;transform:translate(-50%,-100%);font-size:28px;cursor:pointer}.map-label{position:absolute;background:white;padding:5px 8px;border-radius:8px;box-shadow:0 2px 8px #0002;font-size:11px;white-space:nowrap}.score-row{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:13px}.score-bar{height:8px;flex:1;background:#e5e7eb;border-radius:20px;overflow:hidden}.score-fill{height:100%;background:currentColor;border-radius:20px}.ai-match{margin-top:12px;padding:12px;border-radius:12px;background:linear-gradient(135deg,#f5f3ff,#eff6ff);border:1px solid #ddd6fe}.floating-special{position:fixed;right:20px;bottom:20px;z-index:50;display:flex;gap:8px;flex-direction:column}.floating-special button{border:0;border-radius:50%;width:52px;height:52px;font-size:21px;box-shadow:0 8px 22px #0002;cursor:pointer}.special-modal{display:none;position:fixed;inset:0;background:#0008;z-index:100;align-items:center;justify-content:center;padding:20px}.special-modal.show{display:flex}.special-modal-box{background:white;max-width:850px;width:100%;max-height:90vh;overflow:auto;border-radius:20px;padding:25px;position:relative}.special-close{position:absolute;right:16px;top:12px;border:0;background:none;font-size:28px;cursor:pointer}.voice-status{padding:12px;background:#eef2ff;border-radius:12px;margin-top:12px}.eco-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:15px}.eco-item{padding:12px;background:#f0fdf4;border-radius:12px}.trust-score{font-size:42px;font-weight:900;margin:8px 0}.price-alert{padding:12px;background:#fff7ed;border-radius:12px;margin-top:10px}.night-mode{background:#0f172a!important;color:#fff!important}.night-mode .special-card,.night-mode .special-modal-box{background:#1e293b;color:#fff}.night-mode .why-box{background:#334155}.night-mode .map-label{background:#1e293b;color:#fff}
+@media(max-width:900px){.special7-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.special7-grid{grid-template-columns:1fr}.eco-list{grid-template-columns:1fr}}
+
+
+/* ===== NEXORA COMPLETE FACILITY CENTER ===== */
+.facility-center{max-width:1400px;margin:30px auto;padding:0 25px}.facility-head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px}.facility-head p{color:var(--muted)}.facility-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.facility-tile{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow)}.facility-tile .fi{font-size:28px}.facility-tile h3{margin:8px 0 5px}.facility-tile p{font-size:13px;color:var(--muted);line-height:1.5}.control-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.control-btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--primary);color:#fff}.control-btn.alt{background:#e2e8f0;color:#172033}.control-btn.warn{background:#f59e0b;color:#fff}.admin-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:18px}.analytics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.metric{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}.metric strong{font-size:25px;display:block;margin-top:5px}.chart{height:170px;display:flex;align-items:flex-end;gap:14px;padding:18px 10px 5px;background:var(--card);border:1px solid var(--border);border-radius:14px}.chart-col{flex:1;text-align:center;font-size:11px;color:var(--muted)}.chart-bar{width:100%;max-width:42px;margin:auto auto 7px;background:linear-gradient(to top,#2563eb,#60a5fa);border-radius:8px 8px 2px 2px;min-height:8px}.facility-table{width:100%;border-collapse:collapse}.facility-table th,.facility-table td{padding:10px;border-bottom:1px solid var(--border);font-size:13px;text-align:left}.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800}.badge.ok{background:#dcfce7;color:#166534}.badge.no{background:#fee2e2;color:#991b1b}.badge.info{background:#dbeafe;color:#1e40af}.facility-modal{display:none;position:fixed;inset:0;background:#0008;z-index:250;align-items:center;justify-content:center;padding:20px}.facility-modal.show{display:flex}.facility-box{background:var(--card);color:var(--text);width:min(1000px,96vw);max-height:90vh;overflow:auto;border-radius:20px;padding:24px;position:relative}.facility-close{position:absolute;right:15px;top:10px;border:0;background:none;font-size:28px;cursor:pointer;color:inherit}.report-sheet{background:#fff;color:#111;padding:28px;border-radius:12px;line-height:1.6}.dark .report-sheet{background:#fff;color:#111}.report-sheet h2{color:#123b68}.filter-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.filter-chip{border:1px solid var(--border);background:var(--card);color:var(--text);padding:7px 10px;border-radius:999px;cursor:pointer;font-size:12px}.filter-chip.active{background:var(--primary);color:#fff}.role-pill{padding:6px 10px;border-radius:999px;background:#dbeafe;color:#1e40af;font-weight:800;font-size:12px}@media(max-width:1050px){.facility-grid{grid-template-columns:repeat(2,1fr)}.admin-grid{grid-template-columns:1fr}}@media(max-width:600px){.facility-grid,.analytics{grid-template-columns:1fr}.facility-head{align-items:flex-start;flex-direction:column}.facility-center{padding:0 15px}}
+
+
+.nexora-dashboard-panel .dashboard-card{
+  background:var(--card,#fff);
+  border:1px solid var(--border,#dbe3ec);
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 5px 18px rgba(15,23,42,.06);
+}
+.nexora-dashboard-panel .dashboard-card h3{margin-bottom:14px}
+.nexora-dashboard-panel .dash-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:11px 0;border-bottom:1px solid var(--border,#dbe3ec);
+}
+.nexora-dashboard-panel .dash-row:last-child{border-bottom:0}
+.dash-progress{height:9px;background:#e2e8f0;border-radius:20px;overflow:hidden;margin-top:7px}
+.dash-progress span{display:block;height:100%;background:#1769aa;border-radius:20px}
+
+
+
+/* ===== WORKING LOGIN / SIGN UP ===== */
+.auth-overlay{position:fixed;inset:0;background:rgba(15,23,42,.68);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}
+.auth-modal{width:min(430px,100%);background:#fff;border-radius:22px;padding:30px;box-shadow:0 25px 80px rgba(0,0,0,.25);position:relative}
+.auth-close{position:absolute;right:16px;top:12px;border:0;background:transparent;font-size:30px;cursor:pointer;color:#64748b}
+.auth-logo{font-size:38px;text-align:center}
+.auth-modal h2{text-align:center;margin:8px 0 5px;color:#0f172a}
+.auth-subtitle{text-align:center;color:#64748b;margin:0 0 22px}
+.auth-tabs{display:flex;gap:8px;background:#f1f5f9;padding:5px;border-radius:12px;margin-bottom:18px}
+.auth-tab{flex:1;border:0;background:transparent;padding:10px;border-radius:9px;font-weight:700;cursor:pointer;color:#64748b}
+.auth-tab.active{background:#fff;color:#2563eb;box-shadow:0 2px 8px rgba(15,23,42,.08)}
+.auth-field{margin-bottom:14px}
+.auth-field label{display:block;font-weight:700;font-size:13px;color:#334155;margin-bottom:6px}
+.auth-field input{width:100%;box-sizing:border-box;padding:12px 13px;border:1px solid #cbd5e1;border-radius:10px;font-size:15px;outline:none}
+.auth-field input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.auth-primary{width:100%;border:0;border-radius:11px;padding:13px;background:#2563eb;color:white;font-weight:800;font-size:15px;cursor:pointer;margin-top:4px}
+.auth-primary:hover{background:#1d4ed8}
+.auth-error{min-height:20px;color:#dc2626;font-size:13px;margin:6px 0}
+.auth-switch{text-align:center;margin:17px 0 0;color:#64748b;font-size:14px}
+.auth-switch button{border:0;background:none;color:#2563eb;font-weight:800;cursor:pointer}
+.auth-user{display:none;align-items:center;gap:8px}
+.auth-user button{border:1px solid var(--border);background:white;border-radius:10px;padding:9px 12px;cursor:pointer;font-weight:700}
+
+
+/* ===== NEXORA PAYMENT CENTER ===== */
+.payment-modal{position:fixed;inset:0;background:rgba(15,23,42,.78);display:none;align-items:center;justify-content:center;z-index:1200;padding:18px}
+.payment-modal.show{display:flex}
+.payment-box{width:min(620px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:22px;box-shadow:0 25px 90px rgba(0,0,0,.35);padding:25px;position:relative}
+.payment-close{position:absolute;right:15px;top:12px;border:0;background:#f1f5f9;width:38px;height:38px;border-radius:50%;font-size:22px;cursor:pointer}
+.payment-head{padding-right:45px;margin-bottom:18px}
+.payment-head h2{margin-bottom:5px}
+.payment-head p{color:#64748b}
+.payment-summary-card{background:linear-gradient(135deg,#eff6ff,#f5f3ff);border:1px solid #dbeafe;border-radius:15px;padding:15px;margin-bottom:18px}
+.payment-total-row{display:flex;justify-content:space-between;gap:15px;padding:6px 0}
+.payment-total-row.total{font-size:20px;font-weight:900;color:#2563eb;border-top:1px solid #bfdbfe;margin-top:8px;padding-top:12px}
+.payment-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.payment-field{display:flex;flex-direction:column;gap:6px}
+.payment-field.full{grid-column:1/-1}
+.payment-field label{font-size:13px;font-weight:800;color:#334155}
+.payment-field input,.payment-field select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;outline:none;background:#fff}
+.payment-field input:focus,.payment-field select:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.payment-methods{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:15px 0}
+.payment-method{border:1px solid #dbe3ec;background:#fff;border-radius:12px;padding:13px;text-align:left;cursor:pointer;font-weight:800}
+.payment-method:hover{border-color:#2563eb;background:#eff6ff}
+.payment-security{display:flex;gap:8px;align-items:flex-start;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;border-radius:11px;padding:11px;font-size:12px;margin-top:12px}
+.payment-primary{width:100%;border:0;border-radius:12px;padding:14px;background:#2563eb;color:#fff;font-weight:900;font-size:16px;cursor:pointer;margin-top:14px}
+.payment-primary:hover{background:#1d4ed8}
+.payment-note{font-size:11px;color:#64748b;margin-top:10px;text-align:center;line-height:1.5}
+.payment-status{display:none;padding:12px;border-radius:10px;margin-top:12px;font-size:13px;font-weight:700}
+.payment-status.show{display:block}
+.payment-status.error{background:#fee2e2;color:#991b1b}
+.payment-status.ok{background:#dcfce7;color:#166534}
+@media(max-width:600px){.payment-form-grid,.payment-methods{grid-template-columns:1fr}.payment-box{padding:20px}}
+</style>
+
+<!-- NEXORA: Razorpay Checkout SDK for real/test payment processing -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<style id="nexora-map-fix-css">
+#nexoraRealMap{width:100%;height:460px;border-radius:16px;overflow:hidden;border:1px solid #cbd5e1;background:#e5e7eb}
+.nexora-map-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.nexora-map-toolbar button{border:0;border-radius:10px;padding:10px 13px;cursor:pointer;font-weight:700;background:#2563eb;color:white}
+.nexora-map-toolbar button.secondary{background:#e2e8f0;color:#172033}
+.nexora-map-status{padding:10px 12px;border-radius:10px;background:#f8fafc;margin:8px 0;color:#475569}
+.nexora-map-hotels{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px;margin-top:12px}
+.nexora-map-hotel{padding:11px;border:1px solid #e2e8f0;border-radius:11px;background:#fff}
+.nexora-map-hotel button{margin-top:7px;border:0;border-radius:8px;padding:7px 10px;background:#2563eb;color:#fff;cursor:pointer}
+</style>
+<style id="nexora-help-css">
+/* Need Help? Contact Hotel — accessible action block */
+.nx-help{background:linear-gradient(135deg,#eff6ff,#f8fafc);border:1px solid #bfdbfe;border-radius:14px;padding:16px;margin:4px 0}
+.nx-help .nx-h{color:#0f172a;font-size:16px}
+.nx-help-intro{font-size:13px;color:#334155;margin:4px 0 10px;line-height:1.5}
+.nx-help-rows{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.nx-help-row{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5}
+.nx-help-label{flex:0 0 118px;font-weight:800;color:#1e293b;white-space:nowrap}
+.nx-help-val{color:#334155;word-break:break-word;min-width:0}
+.nx-help-btn{display:inline-flex;align-items:center;gap:7px;padding:13px 18px;border-radius:11px;font-weight:800;font-size:15px;line-height:1.2;text-decoration:none;cursor:pointer;background:#2563eb;color:#fff;border:0;min-height:48px;box-shadow:0 2px 6px #2563eb33}
+.nx-help-btn:hover,.nx-help-btn:focus-visible{background:#1d4ed8}
+.nx-help-btn.secondary{background:#fff;color:#1d4ed8;border:2px solid #2563eb}
+.nx-help-btn.secondary:hover,.nx-help-btn.secondary:focus-visible{background:#eff6ff}
+.nx-help-btn.disabled{background:#e2e8f0;color:#94a3b8;box-shadow:none;cursor:not-allowed;border:0}
+.nx-help-note{font-size:12px;color:#64748b;margin-top:10px;line-height:1.4}
+.nx-help-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+@media (max-width:520px){.nx-help-label{flex:0 0 92px;font-size:14px}.nx-help-btn{flex:1 1 100%}}
+</style>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar">
+
+        <div class="logo">
+            NEXORA<span>.</span>
+        </div>
+
+        <div class="nav-links">
+<button class="nav-btn" onclick="openNexoraDashboard()">📊 Dashboard</button>
+            <a href="#home" data-i18n="home">Home</a>
+            <a href="#hotels" data-i18n="hotels">Hotels</a>
+            <a href="#accessibility" data-i18n="accessibility">Accessibility</a>
+            <a href="#about" data-i18n="about">About</a>
+        </div>
+
+        <div class="nav-actions">
+            <button class="nav-btn auth-nav-btn" onclick="openAuthModal('login')">🔐 Login</button>
+            <button class="nav-btn auth-nav-btn" onclick="openAuthModal('signup')">📝 Sign Up</button>
+
+            <select id="language" class="language" aria-label="Language">
+                <option value="en">🇬🇧 English</option>
+                <option value="hi">🇮🇳 हिन्दी</option>
+                <option value="te">🇮🇳 తెలుగు</option>
+                <option value="ta">🇮🇳 தமிழ்</option>
+                <option value="kn">🇮🇳 ಕನ್ನಡ</option>
+                <option value="ml">🇮🇳 മലയാളം</option>
+                <option value="bn">🇮🇳 বাংলা</option>
+                <option value="mr">🇮🇳 मराठी</option>
+                <option value="ar">🇸🇦 العربية</option>
+                <option value="es">🇪🇸 Español</option>
+            </select>
+
+            <button class="icon-btn" onclick="openDashboard()">📊</button>
+            <button class="icon-btn" onclick="openAI()">🤖</button>
+            <button class="icon-btn" onclick="toggleNightMode()" title="Night Mode">🌙</button>
+
+            <select id="currency" class="currency">
+                <option value="INR">₹ INR</option>
+                <option value="USD">$ USD</option>
+                <option value="EUR">€ EUR</option>
+                <option value="GBP">£ GBP</option>
+            </select>
+
+        </div>
+
+    </nav>
+</header>
+
+
+<section class="hero" id="home">
+
+    <div class="hero-inner">
+
+        <h1 data-i18n="heroTitle">
+            Find a hotel that fits YOU.
+        </h1>
+
+        <p data-i18n="heroSubtitle">
+            Compare hotels by price, accessibility, facilities, reviews,
+            location and cancellation policies — all in one place.
+        </p>
+
+        <div class="search-box">
+
+            <div class="search-field">
+                <label data-i18n="destination">Destination or hotel</label>
+                <input
+                    id="searchInput"
+                    type="search"
+                    placeholder="Where do you want to stay?"
+                    aria-label="Destination or hotel"
+                >
+            </div>
+
+            <div class="search-field">
+                <label>Select State</label>
+                <select id="stateSelect" onchange="onStateChange()" aria-label="Select state">
+                    <option value="">All States</option>
+                </select>
+            </div>
+
+            <div class="search-field">
+                <label>Select Place</label>
+                <select id="placeSelect" onchange="onPlaceChange()" aria-label="Select place">
+                    <option value="">All Places</option>
+                </select>
+            </div>
+
+            <div class="search-field">
+                <label data-i18n="checkin">Check-in</label>
+                <input id="checkin" type="date">
+            </div>
+
+            <div class="search-field">
+                <label data-i18n="checkout">Check-out</label>
+                <input id="checkout" type="date">
+            </div>
+
+            <div class="search-field">
+                <label data-i18n="guests">Guests</label>
+                <select id="guests">
+                    <option>1 Guest</option>
+                    <option selected>2 Guests</option>
+                    <option>3 Guests</option>
+                    <option>4 Guests</option>
+                    <option>5+ Guests</option>
+                </select>
+            </div>
+
+            <button class="search-btn" onclick="applyFilters()" data-i18n="search">
+                Search
+            </button>
+
+        </div>
+        <div class="hero-tools">
+            <button onclick="openAI()">🤖 AI Hotel Recommendation</button>
+            <button onclick="openSmartMatch()">✨ Smart Match</button>
+            <button onclick="openMapView()">🗺️ Map View</button>
+            <button onclick="startVoiceSearch()">🎤 Voice Search</button>
+            <button onclick="openDashboard()">📊 My Dashboard</button>
+            <button onclick="openApiInfo()">🔗 Developer / API</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="quick-features">
+
+    <div class="feature-grid">
+
+        <div class="feature">
+            <div class="feature-icon">💰</div>
+            <h3 data-i18n="transparent">Transparent Pricing</h3>
+            <p>Taxes and charges shown clearly</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">♿</div>
+            <h3 data-i18n="accessible">Accessible Stays</h3>
+            <p>Wheelchair-friendly information</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">⭐</div>
+            <h3 data-i18n="verified">Verified Reviews</h3>
+            <p>Easy rating comparison</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">📍</div>
+            <h3 data-i18n="location">Smart Location</h3>
+            <p>Distance from important places</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🌍</div>
+            <h3 data-i18n="languages">10 Languages</h3>
+            <p>Travel in your language</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ===== NEXORA DASHBOARD ===== -->
+<section id="dashboardPanel" class="nexora-dashboard-panel" style="display:none;padding:28px;max-width:1450px;margin:auto;">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px;flex-wrap:wrap;">
+    <div>
+      <h2>📊 NEXORA Management Dashboard</h2>
+      <p style="color:#64748b;margin-top:5px;">Monitor bookings, hotels, ratings, facilities and accessibility.</p>
+    </div>
+    <button class="book-now" onclick="closeNexoraDashboard()">← Back to Hotels</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-bottom:22px;">
+    <div class="dashboard-card"><div>🏨</div><strong>Total Hotels</strong><h2 id="dashHotels">0</h2></div>
+    <div class="dashboard-card"><div>📅</div><strong>Total Bookings</strong><h2 id="dashBookings">0</h2></div>
+    <div class="dashboard-card"><div>⭐</div><strong>Average Rating</strong><h2 id="dashRating">0</h2></div>
+    <div class="dashboard-card"><div>♿</div><strong>Accessible Hotels</strong><h2 id="dashAccessible">0</h2></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:20px;">
+    <div class="dashboard-card">
+      <h3>🏷️ Facility Availability</h3>
+      <div class="dash-row"><span>📶 Wi-Fi</span><b id="dashWifi">0</b></div>
+      <div class="dash-row"><span>🚗 Parking</span><b id="dashParking">0</b></div>
+      <div class="dash-row"><span>🍳 Breakfast</span><b id="dashBreakfast">0</b></div>
+      <div class="dash-row"><span>🏊 Swimming Pool</span><b id="dashPool">0</b></div>
+      <div class="dash-row"><span>❄️ Air Conditioning</span><b id="dashAC">0</b></div>
+    </div>
+
+    <div class="dashboard-card">
+      <h3>♿ Accessibility</h3>
+      <div class="dash-row"><span>Wheelchair Access</span><b id="dashWheelchair">0</b></div>
+      <div class="dash-row"><span>Elevator</span><b id="dashElevator">0</b></div>
+      <div class="dash-row"><span>Accessible Rooms</span><b id="dashRooms">0</b></div>
+      <div class="dash-row"><span>Accessible Bathrooms</span><b id="dashBathrooms">0</b></div>
+      <div class="dash-row"><span>Accessible Parking</span><b id="dashAccessibleParking">0</b></div>
+    </div>
+
+    <div class="dashboard-card">
+      <h3>🛡️ Trust & Transparency</h3>
+      <div class="dash-row"><span>Verified Information</span><b id="dashVerified">0</b></div>
+      <div class="dash-row"><span>Verified Reviews</span><b id="dashVerifiedReviews">0</b></div>
+      <div class="dash-row"><span>Free Cancellation</span><b id="dashCancellation">0</b></div>
+      <div class="dash-row"><span>Taxes Included</span><b id="dashTaxes">0</b></div>
+    </div>
+  </div>
+
+  <div class="dashboard-card" style="margin-top:20px;">
+    <h3>📈 Hotel Performance</h3>
+    <div id="dashHotelsList"></div>
+  </div>
+</section>
+
+<main class="main" id="hotels">
+
+    <div class="section-title">
+        <div>
+            <h2 data-i18n="discover">Discover Hotels</h2>
+            <p data-i18n="discoverText">
+                Compare hotels using the requirements that matter to you.
+            </p>
+        </div>
+    </div>
+
+    <div class="content-layout">
+
+        <!-- FILTERS -->
+
+        <aside class="filters">
+
+            <h3 data-i18n="filters">Filters</h3>
+
+            <div class="filter-group">
+
+                <h4>💰 Price</h4>
+
+                <input
+                    id="priceRange"
+                    class="range"
+                    type="range"
+                    min="1000"
+                    max="50000"
+                    step="500"
+                    value="50000"
+                    oninput="updatePrice()"
+                >
+
+                <div class="range-value">
+                    Up to <span id="priceValue">₹50,000</span>
+                </div>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <h4>⭐ Rating</h4>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="rating4">
+                    4.0+ Rating
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="rating45">
+                    4.5+ Rating
+                </label>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <h4>🏨 Facilities</h4>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="wifi">
+                    Free Wi-Fi
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="parking">
+                    Parking
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="breakfast">
+                    Breakfast
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="pool">
+                    Swimming Pool
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="ac">
+                    Air Conditioning
+                </label>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <h4>♿ Accessibility</h4>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="wheelchair">
+                    Wheelchair Access
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="elevator">
+                    Elevator
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="accessibleRoom">
+                    Accessible Room
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="accessibleBathroom">
+                    Accessible Bathroom
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="accessibleParking">
+                    Accessible Parking
+                </label>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <h4>📋 Booking Policy</h4>
+
+                <label class="checkbox">
+                    <input type="checkbox" class="filter" data-filter="freeCancellation">
+                    Free Cancellation
+                </label>
+
+            </div>
+
+
+            <div class="filter-group">
+                <h4>🐕 Other</h4>
+                <label class="checkbox"><input type="checkbox" class="filter" data-filter="pet"> 🐕 Pet Friendly</label>
+            </div>
+
+            <button class="clear-btn" onclick="clearFilters()">
+                Clear All Filters
+            </button>
+
+        </aside>
+
+
+        <!-- RESULTS -->
+
+        <section>
+
+            <div class="results-top">
+
+                <div class="result-count">
+                    <strong id="resultCount">60</strong>
+                    <span data-i18n="results"> hotels found</span>
+                </div>
+
+                <select id="sort" class="sort" onchange="renderHotels()">
+                    <option value="recommended">Recommended</option>
+                    <option value="priceLow">Price: Low to High</option>
+                    <option value="priceHigh">Price: High to Low</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="distance">Nearest Location</option>
+                </select>
+
+            </div>
+
+            <div id="hotelGrid" class="hotel-grid"></div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- COMPARE BAR -->
+
+<div id="compareBar" class="compare-bar">
+
+    <span>
+        <strong id="compareCount">0</strong>
+        hotels selected
+    </span>
+
+    <button onclick="openCompare()">
+        Compare
+    </button>
+
+    <button onclick="clearCompare()">
+        Clear
+    </button>
+
+</div>
+
+
+<!-- HOTEL MODAL -->
+
+<div id="hotelModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close" onclick="closeModal()">×</button>
+
+        <h2 id="modalName" class="modal-title"></h2>
+
+        <p id="modalLocation" class="modal-subtitle"></p>
+
+        <div id="modalInfo" class="info-grid"></div>
+
+        <div class="booking-box">
+
+            <p>
+                Room price:
+                <strong id="modalPrice"></strong>
+            </p>
+
+            <p>
+                Taxes & charges:
+                <strong id="modalTax"></strong>
+            </p>
+
+            <hr style="margin:15px 0;border:0;border-top:1px solid #bfdbfe">
+
+            <p>
+                Total:
+                <span id="modalTotal" class="total"></span>
+            </p>
+
+            <button class="book-now" onclick="bookHotel()">
+                Book This Hotel
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ===== NEXORA PAYMENT CENTER ===== -->
+<div id="paymentModal" class="payment-modal" onclick="closePaymentOutside(event)">
+  <div class="payment-box">
+    <button class="payment-close" onclick="closeExtra('paymentModal')">×</button>
+    <div class="payment-head">
+      <h2>💳 Secure Payment</h2>
+      <p>Complete your hotel booking using UPI, cards, net banking or wallets.</p>
+    </div>
+
+    <div class="payment-summary-card">
+      <strong id="paymentSummary">Booking summary</strong>
+      <div class="payment-total-row"><span>Room charges</span><b id="payRoom">₹0</b></div>
+      <div class="payment-total-row"><span>Taxes & charges</span><b id="payTax">₹0</b></div>
+      <div class="payment-total-row total"><span>Total payable</span><span id="payTotal">₹0</span></div>
+    </div>
+
+    <div class="payment-form-grid">
+      <div class="payment-field">
+        <label for="payName">Guest name *</label>
+        <input id="payName" type="text" autocomplete="name" placeholder="Enter your full name">
+      </div>
+      <div class="payment-field">
+        <label for="payEmail">Email *</label>
+        <input id="payEmail" type="email" autocomplete="email" placeholder="you@example.com">
+      </div>
+      <div class="payment-field">
+        <label for="payPhone">Mobile number *</label>
+        <input id="payPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile number" maxlength="10">
+      </div>
+      <div class="payment-field">
+        <label for="payMethod">Preferred payment</label>
+        <select id="payMethod" onchange="updatePaymentMethodHint()">
+          <option value="UPI">🇮🇳 UPI (GPay / PhonePe / Paytm / BHIM)</option>
+          <option value="CARD">💳 Credit / Debit Card</option>
+          <option value="NETBANKING">🏦 Net Banking</option>
+          <option value="WALLET">👛 Wallets</option>
+          <option value="EMI">📆 EMI</option>
+          <option value="PAYLATER">⏳ Pay Later</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="payment-methods">
+      <button class="payment-method" onclick="selectPaymentMethod('UPI')">📱 UPI<br><small>GPay • PhonePe • Paytm</small></button>
+      <button class="payment-method" onclick="selectPaymentMethod('CARD')">💳 Cards<br><small>Visa • Mastercard • RuPay</small></button>
+      <button class="payment-method" onclick="selectPaymentMethod('NETBANKING')">🏦 Net Banking<br><small>Major Indian banks</small></button>
+      <button class="payment-method" onclick="selectPaymentMethod('WALLET')">👛 Wallets<br><small>Supported wallets</small></button>
+      <button class="payment-method" onclick="selectPaymentMethod('EMI')">📆 EMI<br><small>Eligible cards</small></button>
+      <button class="payment-method" onclick="selectPaymentMethod('PAYLATER')">⏳ Pay Later<br><small>Eligibility applies</small></button>
+    </div>
+
+    <div id="paymentMethodHint" class="payment-security">🔒 You will be redirected to the secure Razorpay checkout to choose the available payment instrument. NEXORA does not store your card or UPI PIN.</div>
+    <div id="paymentStatus" class="payment-status"></div>
+
+    <button class="payment-primary" onclick="startRealPayment()">🔐 Pay Securely & Confirm Booking</button>
+    <div class="payment-note">
+      Payments are processed by Razorpay. For live payments, configure your Razorpay Key ID and use a backend to create/verify orders and signatures.
+      Never put a Razorpay Key Secret in this HTML file.
+    </div>
+  </div>
+</div>
+
+<!-- COMPARE MODAL -->
+
+<div id="compareModal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="close" onclick="closeCompare()">×</button>
+
+        <h2 class="modal-title">
+            Hotel Comparison
+        </h2>
+
+        <p class="modal-subtitle">
+            Compare the hotels according to NEXORA's 10 major requirements.
+        </p>
+
+        <div id="compareContent"></div>
+
+    </div>
+
+</div>
+
+
+
+<section id="accessibility" style="max-width:1400px;margin:30px auto;padding:25px"><div class="feature" style="border:0;border-radius:18px"><h2>♿ Accessibility Center</h2><p style="margin-top:8px;color:var(--muted)">Use the accessibility filters to find wheelchair access, elevators, accessible rooms, bathrooms and parking. These are demo listing attributes until connected to verified live data.</p></div></section>
+
+<section style="max-width:1400px;margin:30px auto;padding:25px"><div style="background:linear-gradient(135deg,#2563eb,#7c3aed);color:white;padding:30px;border-radius:20px;text-align:center"><h2>🔥 Special Hotel Deals</h2><p style="margin:10px 0 20px">Save more on your next stay across India.</p><button onclick="document.getElementById('hotels').scrollIntoView({behavior:'smooth'})" style="border:0;padding:12px 22px;border-radius:10px;font-weight:800">Explore Hotels</button></div></section>
+
+<section style="max-width:1400px;margin:30px auto 50px;padding:25px"><h2 style="text-align:center;margin-bottom:25px">Why Choose NEXORA?</h2><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px"><div class="feature"><div class="feature-icon">🔎</div><h3>Easy Search</h3><p>Find hotels quickly using smart filters.</p></div><div class="feature"><div class="feature-icon">💰</div><h3>Transparent Prices</h3><p>See demo price breakdown before booking.</p></div><div class="feature"><div class="feature-icon">♿</div><h3>Accessibility</h3><p>Compare accessibility attributes.</p></div><div class="feature"><div class="feature-icon">📍</div><h3>Smart Location</h3><p>Open hotel locations in maps.</p></div></div></section>
+
+<section class="special7" id="specialFeatures">
+ <div class="section-title"><div><h2>✨ NEXORA Smart Travel</h2><p>Seven intelligent features designed to make hotel discovery easier, safer and smarter.</p></div></div>
+ <div class="special7-grid">
+  <div class="special-card"><div class="special-icon">🤖</div><h3>AI Smart Match</h3><p>Get a personalized hotel match based on your travel needs.</p><button class="special-btn match-btn" onclick="openSmartMatch()">Find My Match</button></div>
+  <div class="special-card"><div class="special-icon">🗺️</div><h3>Live Map View</h3><p>See hotel locations and nearby attractions at a glance.</p><button class="special-btn map-btn" onclick="openMapView()">Open Map</button></div>
+  <div class="special-card"><div class="special-icon">🔔</div><h3>Price Drop Alert</h3><p>Save a hotel and activate a demo price-drop notification.</p><button class="special-btn alert-btn" onclick="priceAlert()">🔔 Alert Me</button></div>
+  <div class="special-card"><div class="special-icon">♿</div><h3>Accessibility Score</h3><p>Understand accessibility at a glance with a 0–100 score.</p><button class="special-btn" onclick="accessibilityInfo()">Check Score</button></div>
+  <div class="special-card"><div class="special-icon">🌱</div><h3>Eco Hotel Score</h3><p>Highlight eco-friendly facilities and responsible stays.</p><button class="special-btn" onclick="ecoInfo()">View Eco Score</button></div>
+  <div class="special-card"><div class="special-icon">🛡️</div><h3>NEXORA Trust Score</h3><p>One simple score combining verification, reviews and transparency.</p><button class="special-btn" onclick="trustInfo()">Check Trust</button></div>
+  <div class="special-card"><div class="special-icon">🎤</div><h3>Voice Search</h3><p>Speak your hotel search instead of typing it.</p><button class="special-btn voice-btn" onclick="startVoiceSearch()">🎤 Speak</button><div id="voiceStatus"></div></div>
+  <div class="special-card"><div class="special-icon">⚡</div><h3>Quick Travel Tools</h3><p>Switch currency, language, dashboard and night mode from one place.</p><button class="special-btn" onclick="toggleNightMode()">🌙 Night Mode</button></div>
+ </div>
+</section>
+
+<div id="specialModal" class="special-modal"><div class="special-modal-box"><button class="special-close" onclick="closeSpecial()">×</button><div id="specialContent"></div></div></div>
+<div class="floating-special"><button onclick="openSmartMatch()" title="AI Match">🤖</button><button onclick="startVoiceSearch()" title="Voice Search">🎤</button></div>
+
+<footer id="about">
+
+    <div class="footer-inner">
+
+        <div>
+            <h3>NEXORA</h3>
+            <p>
+                A smart hotel booking platform designed to make hotel
+                discovery transparent, accessible and easy to compare.
+            </p>
+        </div>
+
+        <div>
+            <h3>For Travelers</h3>
+            <ul>
+                <li>Search Hotels</li>
+                <li>Compare Hotels</li>
+                <li>Accessible Hotels</li>
+                <li>Verified Reviews</li>
+            </ul>
+        </div>
+
+        <div>
+            <h3>Special Support</h3>
+            <ul>
+                <li>♿ Accessibility</li>
+                <li>🌍 International Travelers</li>
+                <li>💱 Currency Conversion</li>
+                <li>🗣️ Multilingual Support</li>
+            </ul>
+        </div>
+
+        <div>
+            <h3>Policies</h3>
+            <ul>
+                <li>Cancellation Policy</li>
+                <li>Refund Policy</li>
+                <li>Privacy</li>
+                <li>Terms</li>
+            </ul>
+        </div>
+
+    </div>
+
+</footer>
+<div class="auth-switch">
+      <span id="switchText">Don't have an account?</span>
+      <button onclick="switchAuthMode()" id="switchBtn">Sign Up</button>
+    </div>
+
+    <div class="auth-note">
+      🔒 Your mobile number is used for secure account verification.
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- ===== COMPLETE FACILITY & ADMIN CENTER ===== -->
+<section class="facility-center" id="facilityCenter">
+  <div class="facility-head">
+    <div><h2>🏨 Complete NEXORA Facility Center</h2><p>All major hotel, accessibility, travel, account and management facilities in one place.</p></div>
+    <button class="control-btn" onclick="openFacilityCenter()">⚙️ Control Center</button>
+  </div>
+  <div class="facility-grid">
+    <div class="facility-tile"><div class="fi">📶</div><h3>Wi-Fi</h3><p>Filter and compare hotels offering Wi-Fi.</p></div>
+    <div class="facility-tile"><div class="fi">🚗</div><h3>Parking</h3><p>Check parking availability before booking.</p></div>
+    <div class="facility-tile"><div class="fi">🍳</div><h3>Breakfast</h3><p>Identify hotels with breakfast facilities.</p></div>
+    <div class="facility-tile"><div class="fi">🏊</div><h3>Swimming Pool</h3><p>Compare pool availability.</p></div>
+    <div class="facility-tile"><div class="fi">❄️</div><h3>Air Conditioning</h3><p>Check AC availability.</p></div>
+    <div class="facility-tile"><div class="fi">♿</div><h3>Accessibility</h3><p>Wheelchair access, elevator, accessible rooms, bathrooms and parking.</p></div>
+    <div class="facility-tile"><div class="fi">🛏️</div><h3>Room Types</h3><p>King, Deluxe, Accessible, Family and Executive rooms.</p></div>
+    <div class="facility-tile"><div class="fi">❌</div><h3>Free Cancellation</h3><p>See cancellation flexibility while comparing hotels.</p></div>
+    <div class="facility-tile"><div class="fi">💰</div><h3>Transparent Pricing</h3><p>Show taxes included or separately.</p></div>
+    <div class="facility-tile"><div class="fi">⭐</div><h3>Verified Reviews</h3><p>View review information and hotel ratings.</p></div>
+    <div class="facility-tile"><div class="fi">📍</div><h3>Smart Location</h3><p>Airport, railway station and attraction distance.</p></div>
+    <div class="facility-tile"><div class="fi">🤖</div><h3>AI Smart Match</h3><p>Personalized hotel recommendations based on user preferences.</p></div>
+    <div class="facility-tile"><div class="fi">🗺️</div><h3>Map View</h3><p>Visualize hotel locations and open map links.</p></div>
+    <div class="facility-tile"><div class="fi">🔔</div><h3>Price Alerts</h3><p>Save a hotel and activate a demo price-drop alert.</p></div>
+    <div class="facility-tile"><div class="fi">🎤</div><h3>Voice Search</h3><p>Search hotels using browser speech recognition.</p></div>
+    <div class="facility-tile"><div class="fi">⚖️</div><h3>Hotel Comparison</h3><p>Compare up to three hotels side by side.</p></div>
+    <div class="facility-tile"><div class="fi">❤️</div><h3>Favorites</h3><p>Keep preferred hotels for later.</p></div>
+    <div class="facility-tile"><div class="fi">🌱</div><h3>Eco Score</h3><p>Demo sustainability score from available hotel attributes.</p></div>
+    <div class="facility-tile"><div class="fi">🛡️</div><h3>Trust Score</h3><p>Transparent demo score based on verification and pricing signals.</p></div>
+    <div class="facility-tile"><div class="fi">🌍</div><h3>Languages & Currency</h3><p>Multilingual interface and INR, USD, EUR and GBP display.</p></div>
+  </div>
+  <div class="control-actions">
+    <button class="control-btn" onclick="openFacilityCenter()">📊 Open Dashboard</button>
+    <button class="control-btn alt" onclick="exportNexoraData()">⬇️ Export Data</button>
+    <button class="control-btn alt" onclick="printNexoraReport()">🖨️ Print Report</button>
+    <button class="control-btn warn" onclick="clearNexoraDemoData()">♻️ Reset Demo Data</button>
+  </div>
+</section>
+
+
+<!-- ===== WORKING LOGIN / SIGN UP MODAL ===== -->
+<div id="authModal" class="auth-overlay" onclick="closeAuthOutside(event)">
+  <div class="auth-modal">
+    <button class="auth-close" onclick="closeAuthModal()">×</button>
+    <div class="auth-logo">🏨</div>
+    <h2 id="authTitle">Welcome Back</h2>
+    <p class="auth-subtitle" id="authSubtitle">Login with your mobile number and password.</p>
+    <div class="auth-tabs">
+      <button id="loginTab" class="auth-tab active" onclick="setAuthMode('login')">Login</button>
+      <button id="signupTab" class="auth-tab" onclick="setAuthMode('signup')">Sign Up</button>
+    </div>
+    <form id="authForm" onsubmit="submitAuth(event)"></form>
+    <p class="auth-switch" id="authSwitch"></p>
+  </div>
+</div>
+
+<div class="facility-modal" id="facilityCenterModal">
+ <div class="facility-box">
+  <button class="facility-close" onclick="closeFacilityCenter()">×</button>
+  <div style="display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap"><div><h2>📊 NEXORA Management Dashboard</h2><p style="color:var(--muted)">Overview of bookings, favorites, alerts and hotel facilities.</p></div><span class="role-pill" id="currentRole">Guest</span></div>
+  <div class="analytics" style="margin-top:18px">
+   <div class="metric">🏨 Hotels<strong id="metricHotels">0</strong></div>
+   <div class="metric">❤️ Favorites<strong id="metricFav">0</strong></div>
+   <div class="metric">📅 Bookings<strong id="metricBookings">0</strong></div>
+   <div class="metric">🔔 Alerts<strong id="metricAlerts">0</strong></div>
+   <div class="metric">♿ Accessible<strong id="metricAccess">0</strong></div>
+   <div class="metric">⭐ Avg Rating<strong id="metricRating">0</strong></div>
+  </div>
+  <div class="admin-grid">
+   <div><h3 style="margin:15px 0 10px">📈 Hotel Rating Overview</h3><div class="chart" id="ratingChart"></div></div>
+   <div><h3 style="margin:15px 0 10px">🔎 Facility Filters</h3><div class="filter-chips" id="facilityChips"></div><div class="control-actions"><button class="control-btn" onclick="applyFacilityFilters()">Apply Filters</button><button class="control-btn alt" onclick="clearFacilityFilters()">Clear</button></div></div>
+  </div>
+  <h3 style="margin:20px 0 10px">📋 Repository Snapshot</h3>
+  <div style="overflow:auto"><table class="facility-table"><thead><tr><th>Hotel</th><th>City</th><th>Price</th><th>Rating</th><th>Accessibility</th><th>Verification</th></tr></thead><tbody id="facilityTableBody"></tbody></table></div>
+  <div class="control-actions">
+   <button class="control-btn" onclick="generateNexoraReport()">📄 Generate Editable Report</button>
+   <button class="control-btn alt" onclick="printNexoraReport()">📕 PDF / Print</button>
+   <button class="control-btn alt" >👤 Login / Role</button>
+  </div>
+ </div>
+</div>
+
+<script>
+
+/* ============================================================
+   NEXORA HOTEL DATA
+   60 SAMPLE HOTELS
+   ============================================================ */
+
+const hotelNames = [
+
+    "Nexora Grand Hyderabad",
+    "Charminar Heights",
+    "Hussain Sagar Palace",
+    "Deccan Pearl Hyderabad",
+    "Cyber Towers Residency",
+    "Banjara Luxury Suites",
+
+    "Bengaluru Tech Park Hotel",
+    "Bangalore Central Inn",
+    "Garden City Palace",
+    "Silicon Valley Suites",
+    "Cubbon Park Residency",
+    "Whitefield Grand",
+
+    "Chennai Marina Hotel",
+    "Tamil Heritage Residency",
+    "Chennai Central Palace",
+    "Bay View Suites",
+    "Anna Nagar Grand",
+    "Mahabalipuram Retreat",
+
+    "Mumbai Gateway Hotel",
+    "Marine Drive Residency",
+    "Mumbai Central Grand",
+    "Bandra Sky Hotel",
+    "Juhu Beach Palace",
+    "Navi Mumbai Suites",
+
+    "Delhi Capital Hotel",
+    "Connaught Grand",
+    "India Gate Residency",
+    "Delhi Airport Suites",
+    "Old Delhi Palace",
+    "Aerocity Luxury Hotel",
+
+    "Kolkata Heritage Hotel",
+    "Howrah Grand",
+    "Victoria Palace",
+    "Park Street Suites",
+    "Bengal Riverside Hotel",
+    "Salt Lake Residency",
+
+    "Pune Knowledge Park Hotel",
+    "Pune Central Suites",
+    "Koregaon Grand",
+    "Hinjewadi Residency",
+    "Deccan Plaza",
+    "Pune Airport Hotel",
+
+    "Goa Beach Resort",
+    "Calangute Paradise",
+    "Panaji Grand Hotel",
+    "Candolim Luxury Suites",
+    "Baga Bay Resort",
+    "Goa Heritage Retreat",
+
+    "Jaipur Royal Palace",
+    "Pink City Residency",
+    "Hawa Mahal Hotel",
+    "Rajasthan Heritage Suites",
+    "Amber Fort Residency",
+    "Jaipur Airport Grand",
+
+    "Kochi Marine Hotel",
+    "Kerala Backwater Resort",
+    "Cochin Grand Suites",
+    "Fort Kochi Residency",
+    "Kochi Airport Hotel",
+    "Malabar Heritage Palace"
+];
+
+const cities = [
+
+    "Hyderabad, Telangana",
+    "Hyderabad, Telangana",
+    "Hyderabad, Telangana",
+    "Hyderabad, Telangana",
+    "Hyderabad, Telangana",
+    "Hyderabad, Telangana",
+
+    "Bengaluru, Karnataka",
+    "Bengaluru, Karnataka",
+    "Bengaluru, Karnataka",
+    "Bengaluru, Karnataka",
+    "Bengaluru, Karnataka",
+    "Bengaluru, Karnataka",
+
+    "Chennai, Tamil Nadu",
+    "Chennai, Tamil Nadu",
+    "Chennai, Tamil Nadu",
+    "Chennai, Tamil Nadu",
+    "Chennai, Tamil Nadu",
+    "Mahabalipuram, Tamil Nadu",
+
+    "Mumbai, Maharashtra",
+    "Mumbai, Maharashtra",
+    "Mumbai, Maharashtra",
+    "Mumbai, Maharashtra",
+    "Mumbai, Maharashtra",
+    "Navi Mumbai, Maharashtra",
+
+    "New Delhi, Delhi",
+    "New Delhi, Delhi",
+    "New Delhi, Delhi",
+    "New Delhi, Delhi",
+    "New Delhi, Delhi",
+    "New Delhi, Delhi",
+
+    "Kolkata, West Bengal",
+    "Kolkata, West Bengal",
+    "Kolkata, West Bengal",
+    "Kolkata, West Bengal",
+    "Kolkata, West Bengal",
+    "Kolkata, West Bengal",
+
+    "Pune, Maharashtra",
+    "Pune, Maharashtra",
+    "Pune, Maharashtra",
+    "Pune, Maharashtra",
+    "Pune, Maharashtra",
+    "Pune, Maharashtra",
+
+    "Goa, India",
+    "Goa, India",
+    "Panaji, Goa",
+    "Goa, India",
+    "Goa, India",
+    "Goa, India",
+
+    "Jaipur, Rajasthan",
+    "Jaipur, Rajasthan",
+    "Jaipur, Rajasthan",
+    "Jaipur, Rajasthan",
+    "Jaipur, Rajasthan",
+    "Jaipur, Rajasthan",
+
+    "Kochi, Kerala",
+    "Alleppey, Kerala",
+    "Kochi, Kerala",
+    "Kochi, Kerala",
+    "Kochi, Kerala",
+    "Kozhikode, Kerala"
+];
+
+
+/*
+Each hotel receives different combinations of:
+1. Accurate information
+2. Price
+3. Comparison
+4. Transparent charges
+5. Availability
+6. Reviews
+7. Accessibility
+8. Cancellation
+9. Specific facilities
+10. Location
+*/
+
+/* ============================================================
+   NEXORA - LIVE DATA (loaded from backend /api/hotels)
+   ============================================================ */
+let hotels = [];
+let USD_PER_INR = 83.5;
+
+function _hasAmenity(list, needle) {
+  return (list || []).some(a => (a || "").toLowerCase().indexOf(needle) !== -1);
+}
+// Robust amenity match: strip hyphens/spaces so "Free Wi-Fi" matches "wifi".
+function _hasAm(list, needles) {
+  const items = (list || []).map(a => (a || "").toLowerCase().replace(/[\s\-]+/g, ""));
+  return (needles || []).some(n => items.some(it => it.indexOf(n.replace(/[\s\-]+/g, "")) !== -1));
+}
+
+function denormalizeHotels(apiHotels) {
+  return (apiHotels || []).map(b => {
+    const acc = b.accessibility || {};
+    const am  = b.amenities || [];
+    const rooms = b.rooms || [];
+    const transport = b.nearby_transport || [];
+    const places = b.nearby_places || [];
+    // Facilities are computed on the backend (rooms included for AC) and sent as
+    // b.facilities; fall back to client detection only if not present.
+    const F = b.facilities || {};
+    const findDist = (type) => {
+      const t = transport.find(x => (x.type || "").toLowerCase().indexOf(type.toLowerCase()) !== -1);
+      return t ? t.distance_km : (type === "airport" ? 8 : 3);
+    };
+    const _fac = {
+      wifi: F.wifi === undefined ? _hasAm(am, ["wifi", "wi-fi"]) : F.wifi,
+      parking: F.parking === undefined ? _hasAm(am, ["parking"]) : F.parking,
+      breakfast: F.breakfast === undefined ? _hasAm(am, ["breakfast", "restaurant", "in-room dining"]) : F.breakfast,
+      pool: F.pool === undefined ? _hasAm(am, ["pool"]) : F.pool,
+      ac: F.ac === undefined ? (am.concat(...(rooms || []).map(r => r.amenities || [])).some(a => (a || "").trim().toLowerCase() === "ac") ) : F.ac,
+    };
+    const wheelchair = F.wheelchair === undefined ? acc.wheelchair_accessible === true : F.wheelchair;
+    const elevator = F.elevator === undefined ? (acc.elevator === true || acc.lifts_ramps === true) : F.elevator;
+    const accessibleRoom = F.accessibleRoom === undefined ? acc.accessible_rooms === true : F.accessibleRoom;
+    const accessibleBathroom = F.accessibleBathroom === undefined ? acc.accessible_bathrooms === true : F.accessibleBathroom;
+    const accessibleParking = F.accessibleParking === undefined ? acc.accessible_parking === true : F.accessibleParking;
+    const pet = F.pet === undefined ? (b.id % 2 === 0) : F.pet;
+    const allFacilities = (F.allFacilities === undefined)
+        ? (_fac.wifi && _fac.parking && _fac.breakfast && _fac.pool && _fac.ac &&
+           wheelchair && elevator && accessibleRoom && accessibleBathroom && accessibleParking)
+        : F.allFacilities;
+    return {
+      id: b.id,
+      name: b.name,
+      city: b.city + ", " + b.state,
+      state: b.state,
+      region: b.region,
+      nearest_place: b.nearest_place,
+      price: b.price_inr,
+      rating: b.rating,
+      badge: b.badge,
+      stars: b.stars,
+      type: b.type,
+      reviews: 120 + (b.id * 137) % 3200,
+      distance: places.length ? places[0].distance_km : (0.7 + (b.id % 7) * 0.3),
+      image: b.photo,
+      verifiedInfo: true,
+      available: true,
+      freeCancellation: true,
+      taxesIncluded: true,
+      verifiedReviews: true,
+      wifi: _fac.wifi,
+      parking: _fac.parking,
+      breakfast: _fac.breakfast,
+      pool: _fac.pool,
+      ac: _fac.ac,
+      wheelchair: wheelchair,
+      elevator: elevator,
+      accessibleRoom: accessibleRoom,
+      accessibleBathroom: accessibleBathroom,
+      accessibleParking: accessibleParking,
+      staffAssistance: acc.staff_assistance === true,
+      pet: pet,
+      allFacilities: allFacilities,
+      airportDistance: findDist("airport"),
+      stationDistance: findDist("railway"),
+      attractionDistance: places.length ? places[0].distance_km : 1.5,
+      roomTypes: rooms.map(r => r.type),
+      languages: ["English", "Hindi"],
+      latitude: b.latitude,
+      longitude: b.longitude,
+      _dd: b
+    };
+  });
+}
+
+async function loadHotels() {
+  try {
+    const res = await fetch("/api/hotels");
+    const data = await res.json();
+    USD_PER_INR = data.usd_per_inr || 83.5;
+    currencyRates.USD = 1 / USD_PER_INR;
+    currencySymbols.USD = "$";
+    hotels = denormalizeHotels(data.hotels);
+    filteredHotels = [...hotels];
+    renderHotels();
+    updatePrice();
+    populateSearchOptions();
+  } catch (e) {
+    console.error("Failed to load hotels:", e);
+    notifyUser("⚠️ Could not load hotels. Check that the server is running.");
+  }
+}
+
+/* ============================================================
+   SEARCH: STATE -> PLACE dropdowns
+   ============================================================ */
+let stateCityMap = {};
+
+async function populateSearchOptions() {
+  const stateSel = document.getElementById("stateSelect");
+  const placeSel = document.getElementById("placeSelect");
+  if (!stateSel || !placeSel) return;
+  try {
+    const res = await fetch("/api/cities");
+    const data = await res.json();
+    stateCityMap = {};
+    (data.cities || []).forEach(c => {
+      if (!c.state) return;
+      if (!stateCityMap[c.state]) stateCityMap[c.state] = [];
+      if (stateCityMap[c.state].indexOf(c.city) === -1) stateCityMap[c.state].push(c.city);
+    });
+    const states = Object.keys(stateCityMap).sort();
+    const curState = stateSel.value;
+    stateSel.innerHTML = `<option value="">All States</option>` +
+      states.map(s => `<option value="${s.replace(/"/g, "&quot;")}">${s}</option>`).join("");
+    stateSel.value = curState || "";
+    if (curState) populatePlaces(curState);
+  } catch (e) { console.error("Failed to load search options:", e); }
+}
+
+function populatePlaces(state) {
+  const placeSel = document.getElementById("placeSelect");
+  if (!placeSel) return;
+  const list = (stateCityMap[state] || []).slice().sort();
+  placeSel.innerHTML = `<option value="">All Places</option>` +
+    list.map(c => `<option value="${c.replace(/"/g, "&quot;")}">${c}</option>`).join("");
+}
+
+function onStateChange() {
+  const stateSel = document.getElementById("stateSelect");
+  const placeSel = document.getElementById("placeSelect");
+  const state = stateSel ? stateSel.value : "";
+  if (state) {
+    populatePlaces(state);
+    const inp = document.getElementById("searchInput");
+    if (inp) { inp.value = state; }
+    applyFilters();
+  } else {
+    if (placeSel) placeSel.innerHTML = `<option value="">All Places</option>`;
+    const inp = document.getElementById("searchInput");
+    if (inp && inp.value === (window.__lastState || "")) inp.value = "";
+    window.__lastState = "";
+    applyFilters();
+  }
+}
+
+function onPlaceChange() {
+  const placeSel = document.getElementById("placeSelect");
+  const place = placeSel ? placeSel.value : "";
+  const inp = document.getElementById("searchInput");
+  if (place && inp) inp.value = place;
+  else if (!place) {
+    // Jump back to state-level filtering (clear only the place part)
+    const stateSel = document.getElementById("stateSelect");
+    const state = stateSel ? stateSel.value : "";
+    if (state && inp) inp.value = state;
+    else if (inp) inp.value = "";
+  }
+  applyFilters();
+}
+
+/* ============================================================
+   LANGUAGE SYSTEM
+   ============================================================ */
+
+const translations = {
+
+    en:{
+        home:"Home",
+        hotels:"Hotels",
+        accessibility:"Accessibility",
+        about:"About",
+        heroTitle:"Find a hotel that fits YOU.",
+        heroSubtitle:"Compare hotels by price, accessibility, facilities, reviews, location and cancellation policies — all in one place.",
+        destination:"Destination or hotel",
+        checkin:"Check-in",
+        checkout:"Check-out",
+        guests:"Guests",
+        search:"Search",
+        transparent:"Transparent Pricing",
+        accessible:"Accessible Stays",
+        verified:"Verified Reviews",
+        location:"Smart Location",
+        languages:"10 Languages",
+        discover:"Discover Hotels",
+        discoverText:"Compare hotels using the requirements that matter to you.",
+        filters:"Filters",
+        results:" hotels found"
+    },
+
+    hi:{
+        home:"होम",
+        hotels:"होटल",
+        accessibility:"सुगम्यता",
+        about:"हमारे बारे में",
+        heroTitle:"अपने लिए सही होटल खोजें।",
+        heroSubtitle:"कीमत, सुविधाओं, समीक्षा, स्थान और सुगम्यता के आधार पर होटल की तुलना करें।",
+        destination:"स्थान या होटल",
+        checkin:"चेक-इन",
+        checkout:"चेक-आउट",
+        guests:"मेहमान",
+        search:"खोजें",
+        transparent:"पारदर्शी कीमत",
+        accessible:"सुगम होटल",
+        verified:"सत्यापित समीक्षा",
+        location:"स्मार्ट स्थान",
+        languages:"10 भाषाएँ",
+        discover:"होटल खोजें",
+        discoverText:"अपनी आवश्यकताओं के अनुसार होटल की तुलना करें।",
+        filters:"फ़िल्टर",
+        results:" होटल मिले"
+    },
+
+    te:{
+        home:"హోమ్",
+        hotels:"హోటల్స్",
+        accessibility:"అందుబాటు",
+        about:"మా గురించి",
+        heroTitle:"మీకు సరిపోయే హోటల్‌ను కనుగొనండి.",
+        heroSubtitle:"ధర, సౌకర్యాలు, సమీక్షలు, స్థానం మరియు యాక్సెసిబిలిటీ ఆధారంగా హోటళ్లను పోల్చండి.",
+        destination:"ప్రదేశం లేదా హోటల్",
+        checkin:"చెక్-ఇన్",
+        checkout:"చెక్-అవుట్",
+        guests:"అతిథులు",
+        search:"వెతకండి",
+        transparent:"పారదర్శక ధర",
+        accessible:"అందుబాటులో ఉన్న హోటళ్లు",
+        verified:"ధృవీకరించిన సమీక్షలు",
+        location:"స్మార్ట్ లొకేషన్",
+        languages:"10 భాషలు",
+        discover:"హోటళ్లను కనుగొనండి",
+        discoverText:"మీ అవసరాలకు అనుగుణంగా హోటళ్లను పోల్చండి.",
+        filters:"ఫిల్టర్లు",
+        results:" హోటళ్లు కనుగొనబడ్డాయి"
+    },
+
+    ta:{
+        home:"முகப்பு",
+        hotels:"ஹோட்டல்கள்",
+        accessibility:"அணுகல்தன்மை",
+        about:"எங்களை பற்றி",
+        heroTitle:"உங்களுக்கு பொருத்தமான ஹோட்டலை கண்டுபிடிக்கவும்.",
+        heroSubtitle:"விலை, வசதிகள், மதிப்பீடுகள், இடம் மற்றும் அணுகல்தன்மையின் அடிப்படையில் ஹோட்டல்களை ஒப்பிடுங்கள்.",
+        destination:"இடம் அல்லது ஹோட்டல்",
+        checkin:"செக்-இன்",
+        checkout:"செக்-அவுட்",
+        guests:"விருந்தினர்கள்",
+        search:"தேடல்",
+        transparent:"வெளிப்படையான விலை",
+        accessible:"அணுகக்கூடிய தங்குமிடங்கள்",
+        verified:"சரிபார்க்கப்பட்ட மதிப்பீடுகள்",
+        location:"ஸ்மார்ட் இடம்",
+        languages:"10 மொழிகள்",
+        discover:"ஹோட்டல்களை கண்டறியவும்",
+        discoverText:"உங்கள் தேவைகளுக்கு ஏற்ப ஹோட்டல்களை ஒப்பிடுங்கள்.",
+        filters:"வடிகட்டிகள்",
+        results:" ஹோட்டல்கள் கிடைத்தன"
+    },
+
+    kn:{
+        home:"ಮುಖಪುಟ",
+        hotels:"ಹೋಟೆಲ್‌ಗಳು",
+        accessibility:"ಪ್ರವೇಶಸಾಧ್ಯತೆ",
+        about:"ನಮ್ಮ ಬಗ್ಗೆ",
+        heroTitle:"ನಿಮಗೆ ಸರಿಹೊಂದುವ ಹೋಟೆಲ್ ಹುಡುಕಿ.",
+        heroSubtitle:"ಬೆಲೆ, ಸೌಲಭ್ಯಗಳು, ವಿಮರ್ಶೆಗಳು, ಸ್ಥಳ ಮತ್ತು ಪ್ರವೇಶಸಾಧ್ಯತೆಯ ಆಧಾರದ ಮೇಲೆ ಹೋಟೆಲ್‌ಗಳನ್ನು ಹೋಲಿಸಿ.",
+        destination:"ಸ್ಥಳ ಅಥವಾ ಹೋಟೆಲ್",
+        checkin:"ಚೆಕ್-ಇನ್",
+        checkout:"ಚೆಕ್-ಔಟ್",
+        guests:"ಅತಿಥಿಗಳು",
+        search:"ಹುಡುಕಿ",
+        transparent:"ಪಾರದರ್ಶಕ ಬೆಲೆ",
+        accessible:"ಪ್ರವೇಶಸಾಧ್ಯ ಹೋಟೆಲ್‌ಗಳು",
+        verified:"ಪರಿಶೀಲಿಸಿದ ವಿಮರ್ಶೆಗಳು",
+        location:"ಸ್ಮಾರ್ಟ್ ಸ್ಥಳ",
+        languages:"10 ಭಾಷೆಗಳು",
+        discover:"ಹೋಟೆಲ್‌ಗಳನ್ನು ಹುಡುಕಿ",
+        discoverText:"ನಿಮ್ಮ ಅಗತ್ಯಗಳಿಗೆ ಅನುಗುಣವಾಗಿ ಹೋಟೆಲ್‌ಗಳನ್ನು ಹೋಲಿಸಿ.",
+        filters:"ಫಿಲ್ಟರ್‌ಗಳು",
+        results:" ಹೋಟೆಲ್‌ಗಳು ಕಂಡುಬಂದಿವೆ"
+    },
+
+    ml:{
+        home:"ഹോം",
+        hotels:"ഹോട്ടലുകൾ",
+        accessibility:"പ്രവേശന സൗകര്യം",
+        about:"ഞങ്ങളെക്കുറിച്ച്",
+        heroTitle:"നിങ്ങൾക്ക് അനുയോജ്യമായ ഹോട്ടൽ കണ്ടെത്തൂ.",
+        heroSubtitle:"വില, സൗകര്യങ്ങൾ, റിവ്യൂകൾ, സ്ഥലം, പ്രവേശന സൗകര്യം എന്നിവയുടെ അടിസ്ഥാനത്തിൽ ഹോട്ടലുകൾ താരതമ്യം ചെയ്യൂ.",
+        destination:"സ്ഥലം അല്ലെങ്കിൽ ഹോട്ടൽ",
+        checkin:"ചെക്ക്-ഇൻ",
+        checkout:"ചെക്ക്-ഔട്ട്",
+        guests:"അതിഥികൾ",
+        search:"തിരയുക",
+        transparent:"സുതാര്യമായ വില",
+        accessible:"പ്രവേശന സൗകര്യമുള്ള താമസങ്ങൾ",
+        verified:"സ്ഥിരീകരിച്ച റിവ്യൂകൾ",
+        location:"സ്മാർട്ട് ലൊക്കേഷൻ",
+        languages:"10 ഭാഷകൾ",
+        discover:"ഹോട്ടലുകൾ കണ്ടെത്തുക",
+        discoverText:"നിങ്ങളുടെ ആവശ്യങ്ങൾക്ക് അനുയോജ്യമായ ഹോട്ടലുകൾ താരതമ്യം ചെയ്യുക.",
+        filters:"ഫിൽട്ടറുകൾ",
+        results:" ഹോട്ടലുകൾ കണ്ടെത്തി"
+    },
+
+    bn:{
+        home:"হোম",
+        hotels:"হোটেল",
+        accessibility:"অ্যাক্সেসিবিলিটি",
+        about:"আমাদের সম্পর্কে",
+        heroTitle:"আপনার জন্য উপযুক্ত হোটেল খুঁজুন।",
+        heroSubtitle:"মূল্য, সুবিধা, রিভিউ, অবস্থান এবং অ্যাক্সেসিবিলিটির ভিত্তিতে হোটেল তুলনা করুন।",
+        destination:"গন্তব্য বা হোটেল",
+        checkin:"চেক-ইন",
+        checkout:"চেক-আউট",
+        guests:"অতিথি",
+        search:"অনুসন্ধান",
+        transparent:"স্বচ্ছ মূল্য",
+        accessible:"অ্যাক্সেসযোগ্য হোটেল",
+        verified:"যাচাইকৃত রিভিউ",
+        location:"স্মার্ট লোকেশন",
+        languages:"১০টি ভাষা",
+        discover:"হোটেল আবিষ্কার করুন",
+        discoverText:"আপনার প্রয়োজন অনুযায়ী হোটেল তুলনা করুন।",
+        filters:"ফিল্টার",
+        results:"টি হোটেল পাওয়া গেছে"
+    },
+
+    mr:{
+        home:"मुख्यपृष्ठ",
+        hotels:"हॉटेल्स",
+        accessibility:"प्रवेशयोग्यता",
+        about:"आमच्याबद्दल",
+        heroTitle:"तुमच्यासाठी योग्य हॉटेल शोधा.",
+        heroSubtitle:"किंमत, सुविधा, पुनरावलोकने, स्थान आणि प्रवेशयोग्यतेनुसार हॉटेल्सची तुलना करा.",
+        destination:"स्थान किंवा हॉटेल",
+        checkin:"चेक-इन",
+        checkout:"चेक-आउट",
+        guests:"पाहुणे",
+        search:"शोधा",
+        transparent:"पारदर्शक किंमत",
+        accessible:"प्रवेशयोग्य हॉटेल्स",
+        verified:"सत्यापित पुनरावलोकने",
+        location:"स्मार्ट स्थान",
+        languages:"१० भाषा",
+        discover:"हॉटेल्स शोधा",
+        discoverText:"तुमच्या गरजेनुसार हॉटेल्सची तुलना करा.",
+        filters:"फिल्टर्स",
+        results:" हॉटेल्स सापडली"
+    },
+
+    ar:{
+        home:"الرئيسية",
+        hotels:"الفنادق",
+        accessibility:"إمكانية الوصول",
+        about:"من نحن",
+        heroTitle:"اعثر على الفندق المناسب لك.",
+        heroSubtitle:"قارن الفنادق حسب السعر والمرافق والتقييمات والموقع وإمكانية الوصول وسياسة الإلغاء.",
+        destination:"الوجهة أو الفندق",
+        checkin:"تسجيل الوصول",
+        checkout:"تسجيل المغادرة",
+        guests:"الضيوف",
+        search:"بحث",
+        transparent:"أسعار شفافة",
+        accessible:"فنادق سهلة الوصول",
+        verified:"تقييمات موثوقة",
+        location:"موقع ذكي",
+        languages:"10 لغات",
+        discover:"اكتشف الفنادق",
+        discoverText:"قارن الفنادق حسب احتياجاتك.",
+        filters:"الفلاتر",
+        results:" فنادق"
+    },
+
+    es:{
+        home:"Inicio",
+        hotels:"Hoteles",
+        accessibility:"Accesibilidad",
+        about:"Acerca de",
+        heroTitle:"Encuentra un hotel que se adapte a ti.",
+        heroSubtitle:"Compara hoteles por precio, instalaciones, opiniones, ubicación y accesibilidad.",
+        destination:"Destino u hotel",
+        checkin:"Entrada",
+        checkout:"Salida",
+        guests:"Huéspedes",
+        search:"Buscar",
+        transparent:"Precios transparentes",
+        accessible:"Estancias accesibles",
+        verified:"Opiniones verificadas",
+        location:"Ubicación inteligente",
+        languages:"10 idiomas",
+        discover:"Descubre hoteles",
+        discoverText:"Compara hoteles según tus necesidades.",
+        filters:"Filtros",
+        results:" hoteles encontrados"
+    }
+
+};
+
+
+function changeLanguage(){
+
+    const lang=document.getElementById("language").value;
+
+    const t=translations[lang] || translations.en;
+
+    document.querySelectorAll("[data-i18n]").forEach(el=>{
+
+        const key=el.dataset.i18n;
+
+        if(t[key]){
+            el.textContent=t[key];
+        }
+
+    });
+
+    document.documentElement.dir = lang==="ar" ? "rtl" : "ltr";
+
+}
+
+
+/* ============================================================
+   CURRENCY
+   ============================================================ */
+
+const currencyRates={
+    INR:1,
+    USD:0.012,
+    EUR:0.0105,
+    GBP:0.009
+};
+
+const currencySymbols={
+    INR:"₹",
+    USD:"$",
+    EUR:"€",
+    GBP:"£"
+};
+
+
+function money(value){
+
+    const currency=document.getElementById("currency").value;
+
+    return currencySymbols[currency] +
+        Math.round(value*currencyRates[currency]).toLocaleString();
+
+}
+
+
+/* ============================================================
+   RENDER HOTELS
+   ============================================================ */
+
+let filteredHotels=[...hotels];
+
+let compareList=[];
+
+function renderHotels(){
+
+    let list=[...filteredHotels];
+
+    const sort=document.getElementById("sort").value;
+
+    if(sort==="priceLow"){
+        list.sort((a,b)=>a.price-b.price);
+    }
+
+    if(sort==="priceHigh"){
+        list.sort((a,b)=>b.price-a.price);
+    }
+
+    if(sort==="rating"){
+        list.sort((a,b)=>b.rating-a.rating);
+    }
+
+    if(sort==="distance"){
+        list.sort((a,b)=>a.distance-b.distance);
+    }
+
+    document.getElementById("resultCount").textContent=list.length;
+
+    const grid=document.getElementById("hotelGrid");
+
+    if(!list.length){
+
+        grid.innerHTML=`
+            <div class="no-results" style="grid-column:1/-1">
+                <div style="font-size:50px">🔎</div>
+                <h2>No hotels found</h2>
+                <p style="margin-top:10px;color:#64748b">
+                    Try removing some filters or searching another destination.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+    grid.innerHTML=list.map(h=>hotelCard(h)).join("");
+
+}
+
+
+function hotelCard(h){
+
+    const accessibility=[];
+
+    if(h.wheelchair) accessibility.push("♿ Wheelchair");
+    if(h.elevator) accessibility.push("🛗 Elevator");
+    if(h.accessibleRoom) accessibility.push("🚪 Accessible Room");
+    if(h.accessibleBathroom) accessibility.push("🚿 Accessible Bath");
+    if(h.accessibleParking) accessibility.push("🅿️ Accessible Parking");
+
+    const facilities=[];
+
+    if(h.wifi) facilities.push("📶 Wi-Fi");
+    if(h.parking) facilities.push("🅿️ Parking");
+    if(h.breakfast) facilities.push("🍳 Breakfast");
+    if(h.pool) facilities.push("🏊 Pool");
+    if(h.ac) facilities.push("❄️ AC");
+
+    return `
+
+        <article class="hotel-card">
+
+            <div
+                class="hotel-image"
+                style="background:${h.image}"
+                aria-label="${h.name}"
+            >
+
+                🏨
+
+                ${
+                    h.verifiedInfo
+                    ? `<span class="hotel-badge">✓ Verified Info</span>`
+                    : `<span class="hotel-badge" style="background:#f59e0b">Popular</span>`
+                }
+
+                <button
+                    class="heart"
+                    onclick="toggleFavorite(this)"
+                    aria-label="Save hotel"
+                >
+                    ♡
+                </button>
+
+            </div>
+
+            <div class="hotel-body">
+
+                <div class="hotel-name">
+                    ${h.name}
+                </div>
+
+                <div class="location">
+                    📍 ${h.city}
+                </div>
+
+                <div class="rating">
+
+                    <span class="rating-score">
+                        ${h.rating}
+                    </span>
+
+                    <span class="stars">
+                        ★★★★★
+                    </span>
+
+                    <small>
+                        ${h.reviews.toLocaleString()} reviews
+                    </small>
+
+                </div>
+
+                <div class="facilities">
+
+                    ${facilities.map(x=>`
+                        <span class="facility">
+                            ${x}
+                        </span>
+                    `).join("")}
+
+                    ${accessibility.map(x=>`
+                        <span class="facility access">
+                            ${x}
+                        </span>
+                    `).join("")}
+
+                </div>
+
+                <div class="hotel-details">
+
+                    <div>
+                        📍 ${h.distance} km from city center
+                    </div>
+
+                    <div>
+                        ✈️ ${h.airportDistance} km airport
+                    </div>
+
+                    <div>
+                        🚉 ${h.stationDistance} km station
+                    </div>
+
+                    <div>
+                        📸 ${h.attractionDistance} km attractions
+                    </div>
+
+                    <div>
+                        ${h.freeCancellation ? "✓ Free cancellation" : "⚠ Non-refundable"}
+                    </div>
+
+                    <div>
+                        ${h.taxesIncluded ? "✓ Taxes included" : "+ Taxes at checkout"}
+                    </div>
+
+                </div>
+
+                <div class="price">
+
+                    <div>
+                        <small>Starting from</small>
+                        <br>
+                        <strong>${money(h.price)}</strong>
+                        <small>/ night</small>
+                    </div>
+
+                    <button
+                        class="view-btn"
+                        onclick="openHotel(${h.id})"
+                    >
+                        View
+                    </button>
+
+                </div>
+
+                <button
+                    class="compare-btn"
+                    onclick="addCompare(${h.id})"
+                >
+                    ⚖ Add to Compare
+                </button>
+
+                <div class="smart-score-strip">
+                    <span class="match-pill">🤖 ${Math.min(99,Math.round((h.rating/5*35)+(calcTrust(h)*.25)+(calcAccessibility(h)*.2)+(h.freeCancellation?10:0)+(h.verifiedInfo?5:0)))}% Match</span>
+                    <span class="access-pill">♿ ${calcAccessibility(h)}/100</span>
+                    <span class="eco-pill">🌱 ${Math.min(100,calcEco(h))}</span>
+                    <span class="trust-pill">🛡️ ${calcTrust(h)}</span>
+                </div>
+                <div class="special-card-actions">
+                    <button class="mini-special" onclick="window.currentHotel=hotels.find(x=>x.id===${h.id});priceAlert()">🔔 Price Alert</button>
+                    <button class="mini-special" onclick="window.currentHotel=hotels.find(x=>x.id===${h.id});accessibilityInfo()">♿ Access</button>
+                    <button class="mini-special" onclick="window.currentHotel=hotels.find(x=>x.id===${h.id});ecoInfo()">🌱 Eco</button>
+                    <button class="mini-special" onclick="window.currentHotel=hotels.find(x=>x.id===${h.id});trustInfo()">🛡️ Trust</button>
+                </div>
+                <div class="hotel-quick-actions">
+                    <a class="external-btn" target="_blank" rel="noopener" href="${getHotelMapUrl(h)}">🗺️ Map</a>
+                    <a class="external-btn" href="#" onclick="openReviews(${h.id});return false;">⭐ Reviews</a>
+                    <a class="external-btn" href="#" onclick="openHotel(${h.id});return false;">🏨 Details</a>
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
+}
+
+
+/* ============================================================
+   FILTER SYSTEM
+   ============================================================ */
+
+function applyFilters(){
+
+    const search=document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const maxPrice=Number(
+        document.getElementById("priceRange").value
+    );
+
+    const checked=[
+        ...document.querySelectorAll(".filter:checked")
+    ].map(x=>x.dataset.filter);
+
+
+    // Build the primary match list. Search now matches name, city, state, region,
+    // nearest famous place and hotel type, so typing any place finds its hotels.
+    filteredHotels=hotels.filter(h=>{
+
+        if(search){
+            const hay=[h.name,h.city,h.state,h.region,h.nearest_place,h.type].join(" ").toLowerCase();
+            const matches=hay.indexOf(search)!==-1 || h.name.toLowerCase().includes(search);
+            if(!matches) return false;
+        }
+
+        if(h.price>maxPrice) return false;
+
+        if(checked.includes("rating4") && h.rating<4)
+            return false;
+
+        if(checked.includes("rating45") && h.rating<4.5)
+            return false;
+
+        if(checked.includes("wifi") && !h.wifi)
+            return false;
+
+        if(checked.includes("parking") && !h.parking)
+            return false;
+
+        if(checked.includes("breakfast") && !h.breakfast)
+            return false;
+
+        if(checked.includes("pool") && !h.pool)
+            return false;
+
+        if(checked.includes("ac") && !h.ac)
+            return false;
+
+        if(checked.includes("wheelchair") && !h.wheelchair)
+            return false;
+
+        if(checked.includes("elevator") && !h.elevator)
+            return false;
+
+        if(checked.includes("accessibleRoom") && !h.accessibleRoom)
+            return false;
+
+        if(checked.includes("accessibleBathroom") && !h.accessibleBathroom)
+            return false;
+
+        if(checked.includes("accessibleParking") && !h.accessibleParking)
+            return false;
+
+        if(checked.includes("freeCancellation") &&
+           !h.freeCancellation)
+            return false;
+
+        if(checked.includes("pet") && !h.pet)
+            return false;
+
+        return true;
+
+    });
+
+    // IMPORTANT: when a place is searched, ONLY that place's hotels are shown.
+    // We do NOT pad with hotels from other places. (Every place in the options is
+    // guaranteed to have at least 2 hotels by the data, so a place search returns
+    // that place's own hotels.)
+
+    // GUARANTEE A (filters only, no text search): never show an empty grid. If a
+    // pure filter combination matches nothing, fall back to the best-rated
+    // all-facilities hotels so the page isn't blank. (A text search of a real place
+    // always returns that place's hotels, so its empty state stays honest.)
+    if(filteredHotels.length === 0 && !search){
+        const fallback=hotels.filter(h=>h.allFacilities).sort((a,b)=>b.rating-a.rating).slice(0,6);
+        if(fallback.length) filteredHotels=fallback;
+    }
+
+    // GUARANTEE B: among the SHOWN hotels, at least one has ALL the facilities.
+    // During a text search we must show ONLY the entered place, so we may only add
+    // an all-facilities hotel FROM THAT SAME PLACE. If the place has no such hotel we
+    // leave it as-is (honest results) rather than pulling a hotel from another place.
+    // Without a search, we prefer a same-city/same-state all-facilities hotel, then any.
+    if(filteredHotels.length && !filteredHotels.some(h=>h.allFacilities)){
+        const first=filteredHotels[0];
+        const sameCity=first ? hotels.find(h=>h.allFacilities && h.city===first.city && !filteredHotels.includes(h)) : null;
+        const sameState=first ? hotels.find(h=>h.allFacilities && h.state===first.state && !filteredHotels.includes(h)) : null;
+        let allF = null;
+        if(search){ allF = sameCity; }          // never leave the entered place
+        else { allF = sameCity || sameState || hotels.find(h=>h.allFacilities && !filteredHotels.includes(h)); }
+        if(allF) filteredHotels.push(allF);
+    }
+
+    renderHotels();
+
+    document
+        .getElementById("hotels")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* ============================================================
+   PRICE RANGE
+   ============================================================ */
+
+function updatePrice(){
+
+    const value=document.getElementById("priceRange").value;
+
+    document.getElementById("priceValue").textContent=
+        money(Number(value));
+
+    applyFilters();
+
+}
+
+
+/* ============================================================
+   CLEAR FILTERS
+   ============================================================ */
+
+function clearFilters(){
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(x=>x.checked=false);
+
+    document.getElementById("priceRange").value=50000;
+
+    document.getElementById("searchInput").value="";
+
+    updatePrice();
+
+}
+
+
+/* ============================================================
+   HOTEL DETAILS
+   ============================================================ */
+
+function openHotel(id){
+
+    const h=hotels.find(x=>x.id===id);
+
+    if(!h) return;
+    window.currentHotel=h;
+
+    document.getElementById("modalName").textContent=h.name;
+
+    document.getElementById("modalLocation").textContent=
+        `📍 ${h.city} • ${h.distance} km from city center`;
+
+    document.getElementById("modalPrice").textContent=
+        money(h.price);
+
+    const tax=h.taxesIncluded ? 0 : h.price*0.12;
+
+    document.getElementById("modalTax").textContent=
+        tax===0 ? "Included" : money(tax);
+
+    document.getElementById("modalTotal").textContent=
+        money(h.price+tax);
+
+    const info=[
+
+        ["⭐ Rating",`${h.rating}/5 (${h.reviews.toLocaleString()} reviews)`],
+
+        ["🏨 Hotel Type",h.type],
+
+        ["📶 Wi-Fi",h.wifi ? "Available" : "Not available"],
+
+        ["🅿️ Parking",h.parking ? "Available" : "Not available"],
+
+        ["🍳 Breakfast",h.breakfast ? "Included" : "Available separately"],
+
+        ["🏊 Swimming Pool",h.pool ? "Available" : "Not available"],
+
+        ["❄️ Air Conditioning",h.ac ? "Available" : "Not available"],
+
+        ["♿ Wheelchair Access",h.wheelchair ? "Yes" : "No"],
+
+        ["🛗 Elevator",h.elevator ? "Yes" : "No"],
+
+        ["🚪 Accessible Room",h.accessibleRoom ? "Yes" : "No"],
+
+        ["🚿 Accessible Bathroom",h.accessibleBathroom ? "Yes" : "No"],
+
+        ["🅿️ Accessible Parking",h.accessibleParking ? "Yes" : "No"],
+
+        ["📋 Cancellation",h.freeCancellation ? "Free cancellation" : "Non-refundable"],
+
+        ["✈️ Airport",`${h.airportDistance} km`],
+
+        ["🚉 Railway Station",`${h.stationDistance} km`],
+
+        ["📍 Attractions",`${h.attractionDistance} km`],
+
+        ["🛏️ Rooms",h.roomTypes.join(", ")],
+
+        ["🌍 Languages",h.languages.join(", ")],
+
+        ["✓ Hotel Information",h.verifiedInfo ? "Verified" : "Needs verification"],
+
+        ["💰 Price",h.taxesIncluded ? "Taxes included" : "Taxes shown separately"]
+
+    ];
+
+    document.getElementById("modalInfo").innerHTML=
+
+        info.map(x=>`
+
+            <div class="info-item">
+
+                <strong>${x[0]}</strong>
+
+                <span>${x[1]}</span>
+
+            </div>
+
+        `).join("");
+
+    document.getElementById("hotelModal")
+        .classList.add("show");
+
+}
+
+
+function closeModal(){
+
+    document.getElementById("hotelModal")
+        .classList.remove("show");
+
+}
+
+
+function getBookingAmounts(){
+    if(!window.currentHotel) return {room:0,tax:0,total:0,nights:1};
+    const h=window.currentHotel;
+    const checkin=document.getElementById("checkin")?.value;
+    const checkout=document.getElementById("checkout")?.value;
+    let nights=1;
+    if(checkin && checkout){
+        const a=new Date(checkin+"T00:00:00");
+        const b=new Date(checkout+"T00:00:00");
+        const diff=Math.ceil((b-a)/86400000);
+        if(diff>0) nights=diff;
+    }
+    const room=Number(h.price||0)*nights;
+    const tax=h.taxesIncluded ? 0 : Math.round(room*0.12);
+    return {room,tax,total:room+tax,nights};
+}
+
+function bookHotel(){
+    if(!window.currentHotel) return;
+    const a=getBookingAmounts();
+    document.getElementById("paymentSummary").textContent =
+        `🏨 ${window.currentHotel.name} • ${window.currentHotel.city} • ${a.nights} night${a.nights===1?'':'s'}`;
+    document.getElementById("payRoom").textContent=money(a.room);
+    document.getElementById("payTax").textContent=a.tax===0 ? "Included" : money(a.tax);
+    document.getElementById("payTotal").textContent=money(a.total);
+    document.getElementById("payMethod").value="UPI";
+    updatePaymentMethodHint();
+    document.getElementById("paymentStatus").className="payment-status";
+    document.getElementById("paymentStatus").textContent="";
+    document.getElementById("paymentModal").classList.add("show");
+}
+
+function selectPaymentMethod(method){
+    const el=document.getElementById("payMethod");
+    if(el) el.value=method;
+    updatePaymentMethodHint();
+}
+
+function updatePaymentMethodHint(){
+    const method=document.getElementById("payMethod")?.value||"UPI";
+    const labels={
+      UPI:"📱 UPI: choose GPay, PhonePe, Paytm, BHIM or another supported UPI app inside secure checkout.",
+      CARD:"💳 Cards: Visa, Mastercard, RuPay and other cards supported by the gateway.",
+      NETBANKING:"🏦 Net Banking: select your bank from the supported bank list.",
+      WALLET:"👛 Wallets: choose from wallets made available by the gateway for your account.",
+      EMI:"📆 EMI: available only for eligible cards/banks and transactions.",
+      PAYLATER:"⏳ Pay Later: availability depends on the payment provider and customer eligibility."
+    };
+    const box=document.getElementById("paymentMethodHint");
+    if(box) box.textContent=labels[method]||labels.UPI;
+}
+
+function showPaymentStatus(message,type){
+    const box=document.getElementById("paymentStatus");
+    if(!box)return;
+    box.textContent=message;
+    box.className="payment-status show "+(type||"");
+}
+
+function closePaymentOutside(event){
+    if(event.target===event.currentTarget) closeExtra("paymentModal");
+}
+
+function startRealPayment(){
+    if(!window.currentHotel){showPaymentStatus("Please select a hotel first.","error");return;}
+    const name=document.getElementById("payName").value.trim();
+    const email=document.getElementById("payEmail").value.trim();
+    const phone=document.getElementById("payPhone").value.replace(/\D/g,"");
+    if(!name || !email || phone.length!==10){
+        showPaymentStatus("Please enter your name, valid email and 10-digit mobile number.","error");
+        return;
+    }
+
+    const a=getBookingAmounts();
+    if(a.total<=0){showPaymentStatus("Invalid booking amount. Please select the hotel again.","error");return;}
+
+    /* Replace this with your Razorpay Key ID from the Razorpay dashboard.
+       Use only the Key ID here. NEVER expose the Key Secret in frontend code. */
+    const RAZORPAY_KEY_ID="rzp_test_REPLACE_WITH_YOUR_KEY_ID";
+
+    if(!window.Razorpay || RAZORPAY_KEY_ID.includes("REPLACE_WITH_YOUR_KEY_ID")){
+        showPaymentStatus("Payment gateway is not configured yet. Add your Razorpay TEST Key ID in startRealPayment(), then run the app through http://localhost. No real payment is taken in this unconfigured state.","error");
+        return;
+    }
+
+    showPaymentStatus("Opening secure payment checkout…","ok");
+
+    const options={
+      key:RAZORPAY_KEY_ID,
+      amount:Math.round(a.total*100),
+      currency:"INR",
+      name:"NEXORA",
+      description:`Hotel booking - ${window.currentHotel.name}`,
+      image:"",
+      prefill:{name,email,contact:"+91"+phone},
+      notes:{hotel:window.currentHotel.name,city:window.currentHotel.city,nights:String(a.nights)},
+      theme:{color:"#2563eb"},
+      method:{
+        upi:true,
+        card:true,
+        netbanking:true,
+        wallet:true,
+        emi:true,
+        paylater:true
+      },
+      handler:function(response){
+        confirmPaidBooking(response,a);
+      },
+      modal:{
+        ondismiss:function(){showPaymentStatus("Payment window closed. Your booking has not been confirmed.","error");}
+      }
+    };
+
+    try{
+      const rzp=new Razorpay(options);
+      rzp.on("payment.failed",function(response){
+        showPaymentStatus("Payment failed or was cancelled. Please try again.","error");
+        console.error("Razorpay payment failed:",response.error);
+      });
+      rzp.open();
+    }catch(err){
+      console.error(err);
+      showPaymentStatus("Could not open the secure payment gateway. Check your Razorpay Key ID and browser console.","error");
+    }
+}
+
+function confirmPaidBooking(paymentResponse,a){
+    const name=document.getElementById("payName").value.trim();
+    const email=document.getElementById("payEmail").value.trim();
+    const phone=document.getElementById("payPhone").value.replace(/\D/g,"");
+    const method=document.getElementById("payMethod").value;
+    const booking={
+      id:"NX-"+Date.now(),
+      hotel:window.currentHotel.name,
+      city:window.currentHotel.city,
+      name,email,phone,method,
+      amount:a.total,
+      nights:a.nights,
+      paymentId:paymentResponse.razorpay_payment_id,
+      paymentStatus:"paid_pending_server_verification",
+      date:new Date().toLocaleString()
+    };
+    const bookings=JSON.parse(localStorage.getItem("nexoraBookings")||"[]");
+    bookings.push(booking);
+    localStorage.setItem("nexoraBookings",JSON.stringify(bookings));
+    closeExtra("paymentModal");
+    closeModal();
+    updateDashboard();
+    notifyUser("✅ Payment received. Booking created. Verify the payment on your backend before treating it as final.");
+}
+
+function confirmBooking(){
+    /* Backward-compatible alias for older buttons/scripts. */
+    startRealPayment();
+}
+
+
+
+/* ============================================================
+   FAVORITES
+   ============================================================ */
+
+function toggleFavorite(button){
+
+    if(button.textContent.trim()==="♡"){
+
+        button.textContent="♥";
+
+        button.style.color="#dc2626";
+
+    }else{
+
+        button.textContent="♡";
+
+        button.style.color="black";
+
+    }
+
+}
+
+
+/* ============================================================
+   HOTEL COMPARISON
+   ============================================================ */
+
+function addCompare(id){
+
+    const hotel=hotels.find(h=>h.id===id);
+
+    if(!hotel) return;
+
+    if(compareList.some(h=>h.id===id)){
+
+        alert("This hotel is already in comparison.");
+
+        return;
+
+    }
+
+    if(compareList.length>=3){
+
+        alert("You can compare up to 3 hotels.");
+
+        return;
+
+    }
+
+    compareList.push(hotel);
+
+    updateCompareBar();
+
+}
+
+
+function updateCompareBar(){
+
+    const bar=document.getElementById("compareBar");
+
+    document.getElementById("compareCount")
+        .textContent=compareList.length;
+
+    if(compareList.length){
+
+        bar.classList.add("show");
+
+    }else{
+
+        bar.classList.remove("show");
+
+    }
+
+}
+
+
+function clearCompare(){
+
+    compareList=[];
+
+    updateCompareBar();
+
+}
+
+
+function openCompare(){
+
+    if(!compareList.length) return;
+
+    const rows=[
+
+        ["Price","price",h=>money(h.price)],
+
+        ["Rating","rating",h=>h.rating],
+
+        ["Reviews","reviews",h=>h.reviews.toLocaleString()],
+
+        ["Wi-Fi","wifi",h=>h.wifi?"✓":"✕"],
+
+        ["Parking","parking",h=>h.parking?"✓":"✕"],
+
+        ["Breakfast","breakfast",h=>h.breakfast?"✓":"✕"],
+
+        ["Swimming Pool","pool",h=>h.pool?"✓":"✕"],
+
+        ["Air Conditioning","ac",h=>h.ac?"✓":"✕"],
+
+        ["Wheelchair Access","wheelchair",h=>h.wheelchair?"✓":"✕"],
+
+        ["Elevator","elevator",h=>h.elevator?"✓":"✕"],
+
+        ["Accessible Room","accessibleRoom",h=>h.accessibleRoom?"✓":"✕"],
+
+        ["Accessible Bathroom","accessibleBathroom",h=>h.accessibleBathroom?"✓":"✕"],
+
+        ["Accessible Parking","accessibleParking",h=>h.accessibleParking?"✓":"✕"],
+
+        ["Free Cancellation","freeCancellation",h=>h.freeCancellation?"✓":"✕"],
+
+        ["Airport Distance","airportDistance",h=>h.airportDistance+" km"],
+
+        ["Railway Station","stationDistance",h=>h.stationDistance+" km"],
+
+        ["Attractions","attractionDistance",h=>h.attractionDistance+" km"],
+
+        ["Verified Information","verifiedInfo",h=>h.verifiedInfo?"✓":"Needs verification"],
+
+        ["Taxes Included","taxesIncluded",h=>h.taxesIncluded?"✓":"Shown separately"]
+
+    ];
+
+
+    let html=`
+
+        <table class="compare-table">
+
+            <tr>
+
+                <th>Requirement</th>
+
+                ${compareList.map(h=>`
+                    <th>${h.name}</th>
+                `).join("")}
+
+            </tr>
+
+    `;
+
+
+    rows.forEach(row=>{
+
+        html+=`
+
+            <tr>
+
+                <th>${row[0]}</th>
+
+                ${compareList.map(h=>`
+                    <td>${row[2](h)}</td>
+                `).join("")}
+
+            </tr>
+
+        `;
+
+    });
+
+
+    html+="</table>";
+
+    document.getElementById("compareContent").innerHTML=html;
+
+    document.getElementById("compareModal")
+        .classList.add("show");
+
+}
+
+
+function closeCompare(){
+
+    document.getElementById("compareModal")
+        .classList.remove("show");
+
+}
+
+
+/* ============================================================
+   EVENT LISTENERS
+   ============================================================ */
+
+document
+    .getElementById("language")
+    .addEventListener("change",changeLanguage);
+
+
+document
+    .getElementById("currency")
+    .addEventListener("change",()=>{
+
+        updatePrice();
+        renderHotels();
+
+    });
+
+
+document
+    .querySelectorAll(".filter")
+    .forEach(filter=>{
+
+        filter.addEventListener("change",applyFilters);
+
+    });
+
+
+document
+    .getElementById("searchInput")
+    .addEventListener("input",applyFilters);
+
+
+/* ESCAPE CLOSE MODALS */
+
+document.addEventListener("keydown",event=>{
+
+    if(event.key==="Escape"){
+
+        closeModal();
+        closeCompare();
+
+    }
+
+});
+
+
+/* INITIAL LOAD (live data from backend) */
+
+loadHotels();
+
+
+
+/* ===== NEXORA V2 INTERACTIVE FEATURES ===== */
+function closeExtra(id){document.getElementById(id).classList.remove("show");}
+function notifyUser(msg){const n=document.getElementById("notify");n.textContent=msg;n.classList.add("show");setTimeout(()=>n.classList.remove("show"),3200);}
+function openAI(){document.getElementById("aiModal").classList.add("show");}
+function getRecommendation(){const budget=document.getElementById("aiBudget").value,need=document.getElementById("aiNeed").value,facility=document.getElementById("aiFacility").value,rating=Number(document.getElementById("aiRating").value);let max=budget==="budget"?3500:budget==="mid"?8000:50000;let list=hotels.filter(h=>h.price<=max&&h.rating>=rating);if(need==="access")list=list.filter(h=>h.wheelchair&&h.elevator&&h.accessibleRoom);else if(need==="family")list=list.filter(h=>h.type==="Family");else if(need==="business")list=list.filter(h=>h.type==="Business");else if(need==="resort")list=list.filter(h=>h.type==="Resort");list=list.filter(h=>h[facility]).sort((a,b)=>b.rating-a.rating).slice(0,5);document.getElementById("aiResult").innerHTML=list.length?`<h3>✨ Recommended for you</h3>`+list.map(h=>`<div class="review"><strong>${h.name}</strong><span>📍 ${h.city} • ⭐ ${h.rating} • ${money(h.price)}/night</span></div>`).join(""):"<p>No exact match. Try changing your preferences.";}
+function openReviews(id){const h=hotels.find(x=>x.id===id);if(!h)return;document.getElementById("reviewsContent").innerHTML=`<h3>${h.name}</h3><p>⭐ ${h.rating}/5 from ${h.reviews.toLocaleString()} demo reviews</p>`+[["Anita","Great location and clean rooms."],["Rahul","Good facilities and helpful staff."],["Priya","Accessibility information was useful."]].map(r=>`<div class="review"><strong>${r[0]} <span class="review-stars">★★★★★</span></strong><span>${r[1]}</span></div>`).join("");document.getElementById("reviewsModal").classList.add("show");}
+function openApiInfo(){document.getElementById("apiModal").classList.add("show");}
+function toggleDarkMode(){document.body.classList.toggle("dark");localStorage.setItem("nexoraDark",document.body.classList.contains("dark"));}
+(function(){if(localStorage.getItem("nexoraDark")==="true")document.body.classList.add("dark");})();
+
+
+
+/* ===== NEXORA 7 SPECIAL FEATURES JS ===== */
+/* ===== SPECIAL FEATURES ===== */
+function showSpecial(html){document.getElementById('specialContent').innerHTML=html;document.getElementById('specialModal').classList.add('show')}
+function closeSpecial(){document.getElementById('specialModal').classList.remove('show')}
+function scoreBar(name,value){return `<div class="score-row"><b style="width:115px">${name}</b><div class="score-bar"><div class="score-fill" style="width:${value}%;color:#2563eb"></div></div><strong>${value}%</strong></div>`}
+function calcAccessibility(h){let keys=['wheelchair','elevator','accessibleRoom','accessibleBathroom','accessibleParking'];return Math.round(keys.reduce((n,k)=>n+(h[k]?20:0),0))}
+function calcTrust(h){let s=0;s+=h.verifiedInfo?30:10;s+=h.verifiedReviews?25:8;s+=h.freeCancellation?15:5;s+=h.taxesIncluded?15:7;s+=Math.min(15,Math.round(h.rating/5*15));return Math.min(100,s)}
+function calcEco(h){return 55+((h.pool?7:0)+(h.parking?5:0)+(h.wifi?4:0)+(h.breakfast?6:0)+(h.type==='Resort'?10:0))}
+function openSmartMatch(){showSpecial(`<h2>🤖 NEXORA AI Smart Match</h2><p>Tell NEXORA what matters most and get a personalized match.</p><div class="form-grid"><select id="smBudget"><option value="3500">Budget: Under ₹3,500</option><option value="8000">Mid-range: Under ₹8,000</option><option value="50000">Premium: Under ₹50,000</option></select><select id="smPurpose"><option value="any">Any purpose</option><option value="Family">Family</option><option value="Business">Business</option><option value="Resort">Resort</option><option value="Budget">Budget</option><option value="Luxury">Luxury</option></select><select id="smAccess"><option value="no">Accessibility not required</option><option value="yes">Accessibility important</option></select></div><button class="book-now" style="margin-top:15px" onclick="runSmartMatch()">✨ Generate Smart Match</button><div id="smartResult"></div>`)}
+function runSmartMatch(){
+  const budgetEl=document.getElementById('smBudget');
+  const purposeEl=document.getElementById('smPurpose');
+  const accessEl=document.getElementById('smAccess');
+  const result=document.getElementById('smartResult');
+  if(!budgetEl||!purposeEl||!accessEl||!result){notifyUser('AI Smart Match is temporarily unavailable.');return;}
+
+  const maxBudget=Number(budgetEl.value)||50000;
+  const purpose=purposeEl.value||'any';
+  const accessibility=accessEl.value==='yes';
+
+  // Score every hotel instead of applying many hard filters at once.
+  // This prevents the AI from returning an empty result when only one
+  // preference has no exact match in the demo dataset.
+  const ranked=hotels.map(h=>{
+    let score=0;
+    const reasons=[];
+
+    // Price is the strongest preference.
+    if(h.price<=maxBudget){
+      score+=35;
+      reasons.push('within your budget');
+    }else{
+      const over=Math.min(25,((h.price-maxBudget)/Math.max(maxBudget,1))*25);
+      score+=Math.max(0,35-over);
+      reasons.push('slightly above budget');
+    }
+
+    // Purpose/type preference.
+    if(purpose==='any') score+=15;
+    else if(h.type===purpose){
+      score+=30;
+      reasons.push(purpose.toLowerCase()+' stay');
+    }else if((purpose==='Budget'&&h.price<=3500)||(purpose==='Luxury'&&h.price>=8000)){
+      score+=12;
+      reasons.push('suitable price range');
+    }
+
+    // Accessibility preference.
+    const accessScore=calcAccessibility(h);
+    if(accessibility){
+      score+=accessScore*0.25;
+      if(h.wheelchair&&h.elevator) reasons.push('accessible facilities');
+    }else{
+      score+=10;
+    }
+
+    // Quality, trust, cancellation and availability.
+    score+=(Number(h.rating)||0)/5*15;
+    score+=calcTrust(h)*0.10;
+    if(h.freeCancellation) score+=5;
+    if(h.available!==false) score+=5; else score-=20;
+    if(h.verifiedInfo) score+=3;
+
+    return {h,score:Math.round(score),reasons};
+  })
+  .sort((a,b)=>b.score-a.score)
+  .slice(0,5);
+
+  if(!ranked.length){
+    result.innerHTML='<p>No hotels are available in the current dataset.</p>';
+    return;
+  }
+
+  result.innerHTML=`<div class="ai-match"><h3>🎯 Your best hotel matches</h3><p style="color:var(--muted);margin-bottom:12px">Ranked using budget, trip purpose, accessibility, rating, trust and availability.</p>`+
+    ranked.map(x=>{
+      const h=x.h;
+      const match=Math.min(99,Math.max(60,x.score));
+      return `<div class="review ai-recommendation-card">
+        <strong>${h.name} <span class="match-pill">${match}% MATCH</span></strong>
+        <span>📍 ${h.city} • ⭐ ${h.rating} • ${money(h.price)}/night</span>
+        <div class="why-box">Why: ${x.reasons.slice(0,4).join(' • ')}${h.freeCancellation?' • Free cancellation':''}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+          <button class="book-now" onclick="showHotel(${h.id})">View Hotel</button>
+          <button class="control-btn alt" onclick="openReviews(${h.id})">Reviews</button>
+        </div>
+      </div>`;
+    }).join('')+'</div>';
+}
+
+
+const NEXORA_CITY_COORDS = {
+  "Hyderabad, Telangana":[17.3850,78.4867],
+  "Bengaluru, Karnataka":[12.9716,77.5946],
+  "Chennai, Tamil Nadu":[13.0827,80.2707],
+  "Mahabalipuram, Tamil Nadu":[12.6208,80.1945],
+  "Mumbai, Maharashtra":[19.0760,72.8777],
+  "Navi Mumbai, Maharashtra":[19.0330,73.0297],
+  "New Delhi, Delhi":[28.6139,77.2090],
+  "Kolkata, West Bengal":[22.5726,88.3639],
+  "Pune, Maharashtra":[18.5204,73.8567],
+  "Goa, India":[15.4909,73.8278],
+  "Panaji, Goa":[15.4909,73.8278],
+  "Jaipur, Rajasthan":[26.9124,75.7873],
+  "Kochi, Kerala":[9.9312,76.2673],
+  "Alleppey, Kerala":[9.4981,76.3388],
+  "Kozhikode, Kerala":[11.2588,75.7804]
+};
+
+let nexoraLeafletMap=null;
+let nexoraUserMarker=null;
+let nexoraAccuracyCircle=null;
+let nexoraHotelMarkers=[];
+
+function getHotelMapUrl(h){
+  const query=encodeURIComponent(`${h.name}, ${h.city}`);
+  return `https://www.google.com/maps/search/?api=1&query=${query}`;
+}
+
+function getGoogleEmbedUrl(h){
+  // Use the hotel's exact coordinates so the map pins (highlights) precisely
+  // at the hotel location. A q=lat,lng embed renders a red Google marker there.
+  const hasCoords = h && h.latitude && h.longitude;
+  const q = hasCoords ? `${h.latitude},${h.longitude}` : `${h.name}, ${h.city}`;
+  return `https://www.google.com/maps?q=${encodeURIComponent(q)}&z=16&hl=en&output=embed`;
+}
+
+function openHotelInMaps(id){
+  const h=hotels.find(x=>x.id===id);
+  if(!h)return;
+  window.open(getHotelMapUrl(h), "_blank", "noopener,noreferrer");
+}
+
+// Show the hotel location on an embedded Google Map (no API key required).
+function showGoogleMap(id){
+  const h=hotels.find(x=>x.id===id);
+  if(!h){ notifyUser("Hotel not found"); return; }
+  const embed=getGoogleEmbedUrl(h);
+  const q=encodeURIComponent(`${h.name}, ${h.city}`);
+  const dir=`https://www.google.com/maps/dir/?api=1&destination=${q}`;
+  const coordsNote = (h.latitude && h.longitude)
+    ? `Coordinates: ${Number(h.latitude).toFixed(4)}, ${Number(h.longitude).toFixed(4)}`
+    : "";
+  showSpecial(`
+    <h2>🗺️ ${h.name}</h2>
+    <p style="color:#64748b;margin:4px 0 12px">📍 ${h.city} · ⭐ ${h.rating} · ${money(h.price)}/night${coordsNote ? " · " + coordsNote : ""}</p>
+    <div style="display:flex;align-items:center;gap:8px;margin:0 0 10px;padding:8px 12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;font-size:13px;color:#1e40af">
+      <span style="font-size:18px">📍</span> <strong>Highlighted location of “${h.name}”</strong> — the red pin below marks this hotel’s exact position.
+    </div>
+    <iframe src="${embed}" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+            style="width:100%;height:440px;border:0;border-radius:12px;background:#e5e7eb"></iframe>
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+      <a class="nx-map-btn" target="_blank" rel="noopener" href="${dir}">🧭 Directions</a>
+      <a class="nx-map-btn" target="_blank" rel="noopener" href="${getHotelMapUrl(h)}">🗺️ Open in Google Maps</a>
+      <button class="nx-map-btn" onclick="openHotel(${h.id})">🔎 View Hotel Details</button>
+    </div>
+    <p style="font-size:12px;color:#64748b;margin-top:14px">Map data © Google. If the map does not load, use the “Open in Google Maps” link.</p>
+  `);
+}
+
+function loadNexoraLeaflet(callback){
+  if(window.L){callback();return;}
+  const existing=document.getElementById("nexora-leaflet-js");
+  if(existing){
+    existing.addEventListener("load",callback,{once:true});
+    return;
+  }
+  const script=document.createElement("script");
+  script.id="nexora-leaflet-js";
+  script.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+  script.onload=callback;
+  script.onerror=()=>notifyUser("❌ Map library could not load. Check your internet connection.");
+  document.body.appendChild(script);
+}
+
+function openMapView(){
+  showSpecial(`
+    <h2>🗺️ NEXORA Live Hotel Map</h2>
+    <p style="color:var(--muted)">Real interactive map using Leaflet + OpenStreetMap. No backend or Google Maps API key is required.</p>
+    <div class="nexora-map-toolbar">
+      <button onclick="locateNexoraUser()">📍 Use My Location</button>
+      <button class="secondary" onclick="fitNexoraHotels()">🏨 Show All Hotels</button>
+    </div>
+    <div id="nexoraMapStatus" class="nexora-map-status">Loading map…</div>
+    <div id="nexoraRealMap"></div>
+    <div id="nexoraMapHotels" class="nexora-map-hotels"></div>
+  `);
+  loadNexoraLeaflet(initNexoraMap);
+}
+
+function initNexoraMap(){
+  const el=document.getElementById("nexoraRealMap");
+  if(!el || !window.L)return;
+
+  if(!nexoraLeafletMap){
+    nexoraLeafletMap=L.map(el,{scrollWheelZoom:true}).setView([20.5937,78.9629],5);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+      maxZoom:19,
+      attribution:"© OpenStreetMap contributors"
+    }).addTo(nexoraLeafletMap);
+  }else{
+    nexoraLeafletMap.invalidateSize();
+  }
+
+  nexoraHotelMarkers.forEach(m=>nexoraLeafletMap.removeLayer(m));
+  nexoraHotelMarkers=[];
+
+  hotels.forEach(h=>{
+    const coords=NEXORA_CITY_COORDS[h.city];
+    if(!coords)return;
+    const marker=L.marker(coords).addTo(nexoraLeafletMap);
+    marker.bindPopup(`
+      <div style="min-width:190px">
+        <b>${h.name}</b><br>
+        📍 ${h.city}<br>
+        ⭐ ${h.rating}/5<br>
+        💰 ${money(h.price)}/night<br><br>
+        <button onclick="openHotel(${h.id})" style="padding:7px 10px;border:0;border-radius:7px;background:#2563eb;color:white;cursor:pointer">View Hotel</button>
+      </div>
+    `);
+    nexoraHotelMarkers.push(marker);
+  });
+
+  renderNexoraMapHotels();
+  setTimeout(()=>nexoraLeafletMap.invalidateSize(),200);
+}
+
+function renderNexoraMapHotels(){
+  const box=document.getElementById("nexoraMapHotels");
+  if(!box)return;
+  box.innerHTML=hotels.slice(0,20).map(h=>{
+    const c=NEXORA_CITY_COORDS[h.city];
+    return `<div class="nexora-map-hotel">
+      <strong>${h.name}</strong><br>
+      <small>📍 ${h.city} • ⭐ ${h.rating} • ${money(h.price)}/night</small><br>
+      ${c?`<button onclick="focusNexoraHotel(${h.id})">📍 Locate</button>`:""}
+      <button onclick="openHotelInMaps(${h.id})">🗺️ Google Maps</button>
+    </div>`;
+  }).join("");
+}
+
+function focusNexoraHotel(id){
+  const h=hotels.find(x=>x.id===id);
+  const c=h && NEXORA_CITY_COORDS[h.city];
+  if(!h || !c || !nexoraLeafletMap)return;
+  nexoraLeafletMap.setView(c,14,{animate:true});
+  const idx=hotels.indexOf(h);
+  if(nexoraHotelMarkers[idx]){
+    nexoraHotelMarkers[idx].openPopup();
+  }
+}
+
+function fitNexoraHotels(){
+  if(!nexoraLeafletMap || !nexoraHotelMarkers.length)return;
+  const group=L.featureGroup(nexoraHotelMarkers);
+  nexoraLeafletMap.fitBounds(group.getBounds().pad(0.12));
+}
+
+function locateNexoraUser(){
+  const status=document.getElementById("nexoraMapStatus");
+  if(!status)return;
+
+  if(!navigator.geolocation){
+    status.textContent="⚠️ Your browser does not support GPS location.";
+    return;
+  }
+
+  status.textContent="📍 Requesting your browser location…";
+
+  navigator.geolocation.getCurrentPosition(
+    pos=>{
+      const lat=pos.coords.latitude;
+      const lng=pos.coords.longitude;
+      const accuracy=Math.round(pos.coords.accuracy);
+
+      if(nexoraUserMarker)nexoraLeafletMap.removeLayer(nexoraUserMarker);
+      if(nexoraAccuracyCircle)nexoraLeafletMap.removeLayer(nexoraAccuracyCircle);
+
+      nexoraUserMarker=L.marker([lat,lng]).addTo(nexoraLeafletMap)
+        .bindPopup("<b>📍 You are here</b>")
+        .openPopup();
+
+      nexoraAccuracyCircle=L.circle([lat,lng],{
+        radius:Math.min(Math.max(accuracy,50),2000)
+      }).addTo(nexoraLeafletMap);
+
+      nexoraLeafletMap.setView([lat,lng],13,{animate:true});
+      status.textContent=`✅ Your location: ${lat.toFixed(5)}, ${lng.toFixed(5)} • accuracy ±${accuracy} m`;
+    },
+    err=>{
+      let msg="Could not get your location.";
+      if(err.code===1)msg="Location permission was denied. Allow location access and try again.";
+      if(err.code===2)msg="Your location is currently unavailable.";
+      if(err.code===3)msg="Location request timed out.";
+      status.textContent="⚠️ "+msg+" The hotel map still works without GPS.";
+    },
+    {enableHighAccuracy:true,timeout:12000,maximumAge:30000}
+  );
+}
+
+function showMapHotel(id){
+  focusNexoraHotel(id);
+}
+
+function priceAlert(){let h=window.currentHotel||hotels[0];let alerts=JSON.parse(localStorage.getItem('nexoraPriceAlerts')||'[]');if(!alerts.includes(h.id))alerts.push(h.id);localStorage.setItem('nexoraPriceAlerts',JSON.stringify(alerts));notifyUser(`🔔 Price-drop alert activated for ${h.name}`);showSpecial(`<h2>🔔 Price Drop Alert</h2><p>Alert activated for <strong>${h.name}</strong>.</p><div class="price-alert">Current demo price: <strong>${money(h.price)}/night</strong><br>We'll monitor this demo listing and notify you when a lower price is available.</div>`)}
+function accessibilityInfo(){let h=window.currentHotel||hotels[0],s=calcAccessibility(h);showSpecial(`<h2>♿ Accessibility Score</h2><h3>${h.name}</h3><div class="trust-score">${s}/100</div>${scoreBar('Wheelchair',h.wheelchair?100:0)}${scoreBar('Elevator',h.elevator?100:0)}${scoreBar('Accessible Room',h.accessibleRoom?100:0)}${scoreBar('Bathroom',h.accessibleBathroom?100:0)}${scoreBar('Parking',h.accessibleParking?100:0)}<p>Accessibility attributes are based on the demo hotel data currently in NEXORA.</p>`)}
+function ecoInfo(){let h=window.currentHotel||hotels[0],s=Math.min(100,calcEco(h));showSpecial(`<h2>🌱 Eco Hotel Score</h2><h3>${h.name}</h3><div class="trust-score">${s}/100</div><div class="eco-list"><div class="eco-item">💧 Water-conscious stay<br><b>Potential</b></div><div class="eco-item">♻️ Waste management<br><b>Potential</b></div><div class="eco-item">☀️ Renewable energy<br><b>Potential</b></div><div class="eco-item">🚗 Sustainable transport<br><b>Potential</b></div></div><p style="margin-top:15px">Eco score is a demo innovation layer and should be connected to verified hotel sustainability data for production.</p>`)}
+function trustInfo(){let h=window.currentHotel||hotels[0],s=calcTrust(h);showSpecial(`<h2>🛡️ NEXORA Trust Score</h2><h3>${h.name}</h3><div class="trust-score">${s}/100</div>${scoreBar('Verified Info',h.verifiedInfo?100:30)}${scoreBar('Verified Reviews',h.verifiedReviews?100:30)}${scoreBar('Cancellation',h.freeCancellation?100:35)}${scoreBar('Price Clarity',h.taxesIncluded?100:50)}<p>This is a transparent demo score calculated from the fields already present in your hotel dataset.</p>`)}
+// ---------------------------------------------------------------------------
+// Voice search: transcribe speech and filter hotels.
+// PRIMARY path records your microphone and sends it to the BACKEND
+// (/api/voice/search) which transcribes server-side. This is the reliable,
+// browser-agnostic path. The native Web Speech API is used only as a last
+// resort if the backend cannot be reached.
+// ---------------------------------------------------------------------------
+async function startVoiceSearch(){
+  const status=document.getElementById('voiceStatus');
+  const ok=await startVoiceByBackend(status);
+  if(!ok){
+    // Backend unreachable in this environment — try the browser's built-in
+    // SpeechRecognition if it exists (secure Chrome/Edge).
+    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(SR){
+      try {
+        const r=new SR();
+        r.lang='en-IN'; r.interimResults=false; r.maxAlternatives=1;
+        if(status)status.innerHTML='<div class="voice-status">🎤 Listening...</div>';
+        r.onstart=()=>{ if(status)status.innerHTML='<div class="voice-status">🎤 Listening… speak now</div>'; };
+        r.onresult=e=>{
+          const text=e.results[0][0].transcript;
+          if(document.getElementById('searchInput')) document.getElementById('searchInput').value=text;
+          applyFilters();
+          if(status)status.innerHTML='<div class="voice-status">✅ Heard: “'+text+'”</div>';
+          notifyUser('🔎 Searching for: '+text);
+        };
+        r.onerror=()=>{ if(status)status.innerHTML='<div class="voice-status">Could not understand. Please try again.</div>'; };
+        r.start();
+      } catch(e){ if(status)status.innerHTML='<div class="voice-status">Voice search is unavailable here.</div>'; }
+    } else if(status){
+      status.innerHTML='<div class="voice-status">Voice search is unavailable here.</div>';
+    }
+  }
+}
+
+// Record the microphone (4s) into a WAV and ask the backend to transcribe it.
+async function startVoiceByBackend(status){
+  if(status)status.innerHTML='<div class="voice-status">🎤 Preparing microphone…</div>';
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    if(status)status.innerHTML='<div class="voice-status">🎤 Microphone is not available in this browser.</div>';
+    return false;
+  }
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({audio:true});
+  } catch(e){
+    if(status)status.innerHTML='<div class="voice-status">🎤 Please allow microphone access and try again.</div>';
+    notifyUser('🎤 Microphone access was denied. Enable it and retry.');
+    return false;
+  }
+  const AudioCtx=window.AudioContext||window.webkitAudioContext;
+  const ctx=new AudioCtx();
+  const sampleRate=ctx.sampleRate||16000;
+  const source=ctx.createMediaStreamSource(stream);
+  const chunks=[];
+  const rec=ctx.createScriptProcessor(4096,1,1);
+  rec.onaudioprocess=e=>{ const ch=e.inputBuffer.getChannelData(0); chunks.push(new Float32Array(ch)); };
+  source.connect(rec);
+  rec.connect(ctx.destination);
+  if(status)status.innerHTML='<div class="voice-status">🎤 Listening… speak now (limit 4s)</div>';
+  await new Promise(res=>setTimeout(res,4000));
+  rec.disconnect(); source.disconnect();
+  stream.getTracks().forEach(t=>t.stop());
+  ctx.close();
+  // Merge recorded chunks into one Int16 PCM buffer and encode a WAV.
+  let total=0; chunks.forEach(c=>total+=c.length);
+  const merged=new Float32Array(total); let off=0; chunks.forEach(c=>{merged.set(c,off); off+=c.length;});
+  const wav=encodeWAV(merged, sampleRate);
+  if(status)status.innerHTML='<div class="voice-status">⏳ Transcribing…</div>';
+  const fd=new FormData();
+  fd.append('audio', wav, 'query.wav');
+  try {
+    const res=await fetch('/api/voice/search',{method:'POST',body:fd});
+    const data=await res.json();
+    if(data && data.error){ if(status)status.innerHTML='<div class="voice-status">⚠️ '+data.error+'</div>'; return true; }
+    const heard=(data && data.text)||'';
+    if(!heard){
+      if(status)status.innerHTML='<div class="voice-status">🤔 Did not hear any speech. Please try again.</div>';
+      return true;
+    }
+    const q=(data.query||heard).trim();
+    if(document.getElementById('searchInput')) document.getElementById('searchInput').value=q;
+    applyFilters();
+    if(status)status.innerHTML='<div class="voice-status">✅ Heard: “'+heard+'”</div>';
+    notifyUser('🔎 Searching for: '+q);
+    return true;
+  } catch(err){
+    if(status)status.innerHTML='<div class="voice-status">⚠️ Could not reach the voice service.</div>';
+    return false;
+  }
+}
+
+// Encode Float32 PCM samples ([-1,1]) into a 16-bit mono WAV blob.
+function encodeWAV(samples, sampleRate){
+  const buffer=new ArrayBuffer(44 + samples.length*2);
+  const view=new DataView(buffer);
+  const writeString=(off,s)=>{ for(let i=0;i<s.length;i++) view.setUint8(off+i, s.charCodeAt(i)); };
+  writeString(0,'RIFF'); view.setUint32(4, 36+samples.length*2, true); writeString(8,'WAVE');
+  writeString(12,'fmt '); view.setUint32(16,16,true); view.setUint16(20,1,true); view.setUint16(22,1,true);
+  view.setUint32(24,sampleRate,true); view.setUint32(28,sampleRate*2,true);
+  view.setUint16(32,2,true); view.setUint16(34,16,true);
+  writeString(36,'data'); view.setUint32(40,samples.length*2,true);
+  let offset=44;
+  for(let i=0;i<samples.length;i++){
+    const s=Math.max(-1, Math.min(1, samples[i]));
+    view.setInt16(offset, s<0 ? s*0x8000 : s*0x7FFF, true); offset+=2;
+  }
+  return new Blob([buffer], {type:'audio/wav'});
+}
+function toggleNightMode(){document.body.classList.toggle('night-mode');localStorage.setItem('nexoraNight',document.body.classList.contains('night-mode'));notifyUser(document.body.classList.contains('night-mode')?'🌙 Night mode ON':'☀️ Day mode ON')}
+(function(){if(localStorage.getItem('nexoraNight')==='true')document.body.classList.add('night-mode')})();
+
+
+/* ===== COMPLETE FACILITY CENTER JS ===== */
+const facilityOptions=[['wifi','📶 Wi-Fi'],['parking','🚗 Parking'],['breakfast','🍳 Breakfast'],['pool','🏊 Pool'],['ac','❄️ AC'],['wheelchair','♿ Wheelchair'],['elevator','🛗 Elevator'],['accessibleRoom','🛏️ Accessible Room'],['accessibleBathroom','🚿 Accessible Bathroom'],['accessibleParking','🅿️ Accessible Parking'],['freeCancellation','❌ Free Cancellation'],['verifiedInfo','✓ Verified Info'],['verifiedReviews','⭐ Verified Reviews']];
+function openFacilityCenter(){document.getElementById('facilityCenterModal').classList.add('show');buildFacilityChips();updateFacilityDashboard();}
+function closeFacilityCenter(){document.getElementById('facilityCenterModal').classList.remove('show')}
+function buildFacilityChips(){const box=document.getElementById('facilityChips');if(!box)return;box.innerHTML=facilityOptions.map(([k,l])=>`<button class="filter-chip" data-fac="${k}" onclick="this.classList.toggle('active')">${l}</button>`).join('')}
+function updateFacilityDashboard(){if(typeof hotels==='undefined')return;const fav=JSON.parse(localStorage.getItem('nexoraFavorites')||'[]'),book=JSON.parse(localStorage.getItem('nexoraBookings')||'[]'),alerts=JSON.parse(localStorage.getItem('nexoraPriceAlerts')||'[]');document.getElementById('metricHotels').textContent=hotels.length;document.getElementById('metricFav').textContent=fav.length;document.getElementById('metricBookings').textContent=book.length;document.getElementById('metricAlerts').textContent=alerts.length;document.getElementById('metricAccess').textContent=hotels.filter(h=>h.wheelchair&&h.elevator).length;document.getElementById('metricRating').textContent=(hotels.reduce((a,h)=>a+h.rating,0)/hotels.length).toFixed(1);document.getElementById('currentRole').textContent=(JSON.parse(localStorage.getItem('nexoraUser')||'null')||{}).role||'Guest';const body=document.getElementById('facilityTableBody');body.innerHTML=hotels.slice(0,12).map(h=>`<tr><td>${h.name}</td><td>${h.city}</td><td>${money(h.price)}</td><td>⭐ ${h.rating}</td><td><span class="badge ${h.wheelchair&&h.elevator?'ok':'no'}">${h.wheelchair&&h.elevator?'Accessible':'Partial'}</span></td><td><span class="badge ${h.verifiedInfo?'ok':'no'}">${h.verifiedInfo?'Verified':'Review'}</span></td></tr>`).join('');const chart=document.getElementById('ratingChart');const groups=[5,4.5,4,3.5,3];chart.innerHTML=groups.map(r=>{const n=hotels.filter(h=>h.rating>=r&&h.rating<r+.5).length;return `<div class="chart-col"><div class="chart-bar" style="height:${Math.max(10,n*10)}px" title="${n} hotels"></div>${r}★<br>${n}</div>`}).join('')}
+function applyFacilityFilters(){const active=[...document.querySelectorAll('.filter-chip.active')].map(x=>x.dataset.fac);if(!active.length){notifyUser('Select at least one facility.');return}if(typeof applyFilters==='function'){document.querySelectorAll('.filter').forEach(x=>{if(active.includes(x.dataset.filter))x.checked=true});applyFilters()}notifyUser('✅ Facility filters applied');}
+function clearFacilityFilters(){document.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active'));if(typeof applyFilters==='function')applyFilters();}
+function exportNexoraData(){const data={exportedAt:new Date().toISOString(),hotels:typeof hotels!=='undefined'?hotels:[],bookings:JSON.parse(localStorage.getItem('nexoraBookings')||'[]'),favorites:JSON.parse(localStorage.getItem('nexoraFavorites')||'[]'),priceAlerts:JSON.parse(localStorage.getItem('nexoraPriceAlerts')||'[]')};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='NEXORA_data.json';a.click();URL.revokeObjectURL(a.href);notifyUser('⬇️ NEXORA data exported');}
+function generateNexoraReport(){const bookings=JSON.parse(localStorage.getItem('nexoraBookings')||'[]');const user=JSON.parse(localStorage.getItem('nexoraUser')||'null');const html=`<div class="report-sheet"><h2>NEXORA Hotel Management Report</h2><p><b>Generated:</b> ${new Date().toLocaleString()}</p><p><b>User:</b> ${user?.name||'Guest'} (${user?.role||'Guest'})</p><hr><h3>System Summary</h3><p>Total hotels: ${hotels.length}</p><p>Average rating: ${(hotels.reduce((a,h)=>a+h.rating,0)/hotels.length).toFixed(1)}/5</p><p>Accessible hotels: ${hotels.filter(h=>h.wheelchair&&h.elevator).length}</p><p>Favorites: ${JSON.parse(localStorage.getItem('nexoraFavorites')||'[]').length}</p><p>Demo bookings: ${bookings.length}</p><h3>Recent Bookings</h3>${bookings.length?bookings.slice(-5).reverse().map(b=>`<p>🏨 ${b.hotel} — ${b.city} — ${b.date}</p>`).join(''):'<p>No bookings recorded.</p>'}<hr><p>This report is generated from the NEXORA frontend demo data.</p></div>`;document.getElementById('facilityCenterModal').classList.add('show');const box=document.querySelector('.facility-box');box.innerHTML=`<button class="facility-close" onclick="closeFacilityCenter()">×</button>${html}<div class="control-actions"><button class="control-btn" onclick="downloadReportHTML()">⬇️ Editable HTML</button><button class="control-btn alt" onclick="printNexoraReport()">🖨️ Print / Save PDF</button></div>`;window.nexoraReportHTML=html;}
+function downloadReportHTML(){const blob=new Blob([`<!doctype html><html><head><meta charset="utf-8"><title>NEXORA Report</title></head><body>${window.nexoraReportHTML||''}</body></html>`],{type:'text/html'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='NEXORA_Report.html';a.click();URL.revokeObjectURL(a.href);}
+function printNexoraReport(){const report=window.nexoraReportHTML||'<h2>NEXORA Report</h2><p>Generated '+new Date().toLocaleString()+'</p>';const w=window.open('','_blank');if(!w){notifyUser('Allow pop-ups to print the report.');return}w.document.write(`<html><head><title>NEXORA Report</title><style>body{font-family:Arial;padding:35px;line-height:1.6}h2{color:#123b68}</style></head><body>${report}</body></html>`);w.document.close();w.focus();w.print();}
+function clearNexoraDemoData(){if(!confirm('Reset NEXORA demo bookings, favorites and alerts?'))return;['nexoraBookings','nexoraFavorites','nexoraPriceAlerts'].forEach(k=>localStorage.removeItem(k));updateFacilityDashboard();if(typeof updateDashboard==='function')updateDashboard();notifyUser('♻️ Demo data reset');}
+
+
+/* ===== DASHBOARD ===== */
+function openNexoraDashboard(){
+  const panel=document.getElementById("dashboardPanel");
+  if(!panel) return;
+  panel.style.display="block";
+  const main=document.querySelector("main");
+  if(main) main.style.display="none";
+  updateNexoraDashboard();
+  panel.scrollIntoView({behavior:"smooth"});
+}
+function closeNexoraDashboard(){
+  const panel=document.getElementById("dashboardPanel");
+  if(panel) panel.style.display="none";
+  const main=document.querySelector("main");
+  if(main) main.style.display="";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function updateNexoraDashboard(){
+  if(typeof hotels==="undefined" || !Array.isArray(hotels)) return;
+  const count=k=>hotels.filter(h=>!!h[k]).length;
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+
+  set("dashHotels",hotels.length);
+  const bookings=JSON.parse(localStorage.getItem("nexoraBookings")||"[]");
+  set("dashBookings",bookings.length);
+  const avg=hotels.length ? hotels.reduce((s,h)=>s+Number(h.rating||0),0)/hotels.length : 0;
+  set("dashRating",avg.toFixed(1)+"/5");
+  set("dashAccessible",hotels.filter(h=>h.wheelchair||h.elevator||h.accessibleRoom||h.accessibleBathroom||h.accessibleParking).length);
+
+  set("dashWifi",count("wifi")); set("dashParking",count("parking"));
+  set("dashBreakfast",count("breakfast")); set("dashPool",count("pool")); set("dashAC",count("ac"));
+  set("dashWheelchair",count("wheelchair")); set("dashElevator",count("elevator"));
+  set("dashRooms",count("accessibleRoom")); set("dashBathrooms",count("accessibleBathroom"));
+  set("dashAccessibleParking",count("accessibleParking"));
+  set("dashVerified",count("verifiedInfo")); set("dashVerifiedReviews",count("verifiedReviews"));
+  set("dashCancellation",count("freeCancellation")); set("dashTaxes",count("taxesIncluded"));
+
+  const list=document.getElementById("dashHotelsList");
+  if(list){
+    const top=[...hotels].sort((a,b)=>Number(b.rating||0)-Number(a.rating||0)).slice(0,6);
+    list.innerHTML=top.map(h=>{
+      const pct=Math.max(0,Math.min(100,Number(h.rating||0)*20));
+      return `<div style="margin:13px 0">
+        <div style="display:flex;justify-content:space-between;gap:10px">
+          <strong>${h.name||"Hotel"}</strong><span>⭐ ${h.rating||0}/5</span>
+        </div>
+        <div class="dash-progress"><span style="width:${pct}%"></span></div>
+      </div>`;
+    }).join("");
+  }
+}
+
+
+
+
+/* ===== WORKING MOBILE + PASSWORD AUTHENTICATION ===== */
+let nexoraAuthMode='login';
+
+function getNexoraUsers(){
+  try{return JSON.parse(localStorage.getItem('nexoraUsers')||'{}')}catch(e){return {}}
+}
+function saveNexoraUsers(users){localStorage.setItem('nexoraUsers',JSON.stringify(users));}
+function normalizeMobile(value){return String(value||'').replace(/\D/g,'').slice(-10);}
+function openAuthModal(mode){nexoraAuthMode=mode||'login';updateAuthForm();const m=document.getElementById('authModal');if(m)m.style.display='flex';document.body.style.overflow='hidden';}
+function closeAuthModal(){const m=document.getElementById('authModal');if(m)m.style.display='none';document.body.style.overflow='';}
+function closeAuthOutside(e){if(e.target===e.currentTarget)closeAuthModal();}
+function setAuthMode(mode){nexoraAuthMode=mode;updateAuthForm();}
+function updateAuthForm(){
+  const signup=nexoraAuthMode==='signup';
+  document.getElementById('authTitle').textContent=signup?'Create Your NEXORA Account':'Welcome Back';
+  document.getElementById('authSubtitle').textContent=signup?'Sign up using your mobile number and password.':'Login with your mobile number and password.';
+  document.getElementById('loginTab').classList.toggle('active',!signup);
+  document.getElementById('signupTab').classList.toggle('active',signup);
+  document.getElementById('authForm').innerHTML=signup?`
+    <div class="auth-field"><label>Full Name</label><input id="authName" type="text" placeholder="Enter your full name" autocomplete="name" required></div>
+    <div class="auth-field"><label>Mobile Number</label><input id="authMobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" autocomplete="tel" required></div>
+    <div class="auth-field"><label>Password</label><input id="authPassword" type="password" minlength="6" placeholder="At least 6 characters" autocomplete="new-password" required></div>
+    <div class="auth-field"><label>Confirm Password</label><input id="authConfirmPassword" type="password" minlength="6" placeholder="Re-enter password" autocomplete="new-password" required></div>
+    <div id="authError" class="auth-error"></div>
+    <button class="auth-primary" type="submit">📝 Create Account</button>`:`
+    <div class="auth-field"><label>Mobile Number</label><input id="authMobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" autocomplete="tel" required></div>
+    <div class="auth-field"><label>Password</label><input id="authPassword" type="password" placeholder="Enter your password" autocomplete="current-password" required></div>
+    <div id="authError" class="auth-error"></div>
+    <button class="auth-primary" type="submit">🔐 Login</button>`;
+  document.getElementById('authSwitch').innerHTML=signup?'Already have an account? <button type="button" onclick="setAuthMode(\'login\')">Login</button>':'Don\'t have an account? <button type="button" onclick="setAuthMode(\'signup\')">Sign Up</button>';
+}
+function submitAuth(event){
+  event.preventDefault();
+  const mobile=normalizeMobile(document.getElementById('authMobile').value);
+  const error=document.getElementById('authError');
+  if(mobile.length!==10){error.textContent='Please enter a valid 10-digit mobile number.';return;}
+  const users=getNexoraUsers();
+  if(nexoraAuthMode==='signup'){
+    const name=document.getElementById('authName').value.trim();
+    const password=document.getElementById('authPassword').value;
+    const confirm=document.getElementById('authConfirmPassword').value;
+    if(name.length<2){error.textContent='Please enter your full name.';return;}
+    if(password.length<6){error.textContent='Password must be at least 6 characters.';return;}
+    if(password!==confirm){error.textContent='Passwords do not match.';return;}
+    if(users[mobile]){error.textContent='This mobile number is already registered. Please login.';return;}
+    users[mobile]={name:name,mobile:mobile,password:password,createdAt:new Date().toISOString()};
+    saveNexoraUsers(users);
+    localStorage.setItem('nexoraUser',JSON.stringify({name:name,mobile:mobile,loggedIn:true}));
+    closeAuthModal();showNexoraUser();notifyUser('🎉 Account created successfully!');
+  }else{
+    const password=document.getElementById('authPassword').value;
+    const user=users[mobile];
+    if(!user){error.textContent='No account found for this mobile number. Please sign up first.';return;}
+    if(user.password!==password){error.textContent='Incorrect password. Please try again.';return;}
+    localStorage.setItem('nexoraUser',JSON.stringify({name:user.name,mobile:user.mobile,loggedIn:true}));
+    closeAuthModal();showNexoraUser();notifyUser('✅ Login successful. Welcome, '+user.name+'!');
+  }
+}
+function showNexoraUser(){
+  const user=JSON.parse(localStorage.getItem('nexoraUser')||'null');
+  document.querySelectorAll('.auth-nav-btn').forEach(b=>b.style.display=user?'none':'inline-flex');
+  let box=document.getElementById('authUserBox');
+  if(!box){box=document.createElement('div');box.id='authUserBox';box.className='auth-user';const actions=document.querySelector('.nav-actions');if(actions)actions.prepend(box);}
+  if(user){box.style.display='flex';box.innerHTML=`<span>👤 ${user.name}</span><button onclick="logoutNexora()">Logout</button>`;}else{box.style.display='none';}
+}
+function logoutNexora(){localStorage.removeItem('nexoraUser');showNexoraUser();notifyUser('👋 Logged out successfully.');}
+document.addEventListener('DOMContentLoaded',()=>{showNexoraUser();updateAuthForm();});
+
+
+/* ============================================================
+   NEXORA - BACKEND-DRIVEN UI (overrides)
+   ============================================================ */
+
+function _nxInjectCss() {
+  if (document.getElementById("nxExtraCss")) return;
+  const s = document.createElement("style");
+  s.id = "nxExtraCss";
+  s.textContent = `
+    .info-item.full{grid-column:1/-1}
+    .nx-photo{width:100%;max-height:260px;object-fit:cover;border-radius:12px;margin-bottom:10px;display:block}
+    .nx-h{font-size:13px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.04em;margin:6px 0 4px}
+    .nx-sub{font-size:13px;color:#64748b;margin:0 0 4px}
+    .nx-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:4px}
+    .nx-grid .cell{background:#f8fafc;border-radius:8px;padding:8px 10px;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+    .nx-yes{color:#16a34a;font-weight:800}.nx-no{color:#dc2626;font-weight:800}
+    .room-opt{border:1.5px solid #e2e8f0;cursor:pointer;transition:.15s}
+    .room-opt:hover,.room-opt.sel{border-color:#2563eb;background:#eff6ff}
+    .room-opt .rp{font-weight:900;color:#1d4ed8}
+    .room-opt small{color:#64748b}
+    .nx-menu-cat{margin:10px 0}
+    .nx-menu-cat h4{margin:0 0 4px;color:#0f172a;font-size:14px}
+    .nx-menu-item{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid #f1f5f9;font-size:13px}
+    .nx-menu-item:last-child{border-bottom:0}
+    .nx-near{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid #f1f5f9;font-size:13px}
+    .nx-near:last-child{border-bottom:0}
+    .nx-near .d{color:#64748b;white-space:nowrap}
+    .nx-attn{background:#fef3c7;border:1px solid #f59e0b;color:#92400e;border-radius:10px;padding:8px 12px;font-size:13px;margin:8px 0}
+    .blueprint-box{border:1px solid #e2e8f0;border-radius:12px;padding:10px;margin-top:8px;background:#fff}
+    .blueprint-box img{width:100%;border-radius:8px;display:block}
+    .nx-map{width:100%;height:240px;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;background:#e5e7eb}
+    .nx-map-btn{display:inline-block;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:8px;padding:7px 11px;font-size:13px;font-weight:700;text-decoration:none;margin:8px 6px 0 0}
+    .nx-map-btn:hover{background:#dbeafe}
+    @media(max-width:560px){.nx-grid{grid-template-columns:1fr}}
+  `;
+  document.head.appendChild(s);
+}
+_nxInjectCss();
+window.addEventListener("load", _nxInjectCss);
+
+const _usd = v => "$" + (v / (USD_PER_INR || 83.5)).toFixed(2);
+function moneyPair(v) {
+  const c = document.getElementById("currency").value;
+  return c === "USD"
+    ? `${money(v)} <small style="color:#64748b">≈ ₹${Number(v).toLocaleString("en-IN")}</small>`
+    : `${money(v)} <small style="color:#64748b">≈ ${_usd(v)}</small>`;
+}
+function moneyUSD(v) { return "$" + (v / (USD_PER_INR || 83.5)).toFixed(2); }
+
+/* ---------- hotel card (overrides hardcoded card) ---------- */
+function hotelCard(h) {
+  const acc = [];
+  if (h.wheelchair) acc.push("♿ Wheelchair");
+  if (h.elevator) acc.push("🛗 Elevator");
+  if (h.accessibleRoom) acc.push("🚪 Access. Room");
+  if (h.accessibleBathroom) acc.push("🚿 Access. Bath");
+  if (h.accessibleParking) acc.push("🅿️ Access. Parking");
+  const fac = [];
+  if (h.wifi) fac.push("📶 Wi-Fi");
+  if (h.parking) fac.push("🅿️ Parking");
+  if (h.breakfast) fac.push("🍳 Breakfast");
+  if (h.pool) fac.push("🏊 Pool");
+  if (h.ac) fac.push("❄️ AC");
+  const st = "★".repeat(Math.max(1, Math.round(h.stars))) + "☆".repeat(Math.max(0, 5 - Math.round(h.stars)));
+  return `
+    <article class="hotel-card">
+      <div class="hotel-image" style="background:linear-gradient(135deg,#2563eb,#7c3aed);position:relative">
+        <img src="${h.image}" alt="${h.name}" loading="lazy"
+             style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+        <span class="hotel-badge">${h.rating}★ ${h.type}</span>
+        <button class="heart" onclick="toggleFavorite(this)" aria-label="Save hotel">♡</button>
+      </div>
+      <div class="hotel-body">
+        <div class="hotel-name">${h.name}</div>
+        <div class="location">📍 ${h.city}</div>
+        <div class="rating">
+          <span class="rating-score">${h.rating}</span>
+          <span class="stars">${st}</span>
+          <small>${h.reviews.toLocaleString()} reviews</small>
+        </div>
+        <div class="facilities">
+          ${fac.map(x => `<span class="facility">${x}</span>`).join("")}
+          ${acc.map(x => `<span class="facility access">${x}</span>`).join("")}
+        </div>
+        <div class="hotel-details">
+          <div>📍 ${h.distance} km from center</div>
+          <div>✈️ ${h.airportDistance} km airport</div>
+          <div>🚉 ${h.stationDistance} km station</div>
+          <div>📸 ${h.attractionDistance} km attractions</div>
+          <div>✓ Free cancellation</div>
+          <div>✓ Taxes included</div>
+        </div>
+        <div class="price">
+          <div>
+            <small>Starting from</small><br>
+            <strong>${money(h.price)}</strong>
+            <small>/ night <span style="color:#2563eb">(${_usd(h.price)})</span></small>
+          </div>
+          <button class="view-btn" onclick="openHotel(${h.id})">View</button>
+        </div>
+        <button class="compare-btn" onclick="addCompare(${h.id})">⚖ Add to Compare</button>
+        <div class="special-card-actions">
+          <button class="mini-special" onclick="window.currentHotel=hotels.find(x=>x.id===${h.id});openHotel(${h.id})">🔎 Details</button>
+          <button class="mini-special" onclick="showGoogleMap(${h.id})">🗺️ Map</button>
+        </div>
+      </div>
+    </article>`;
+}
+
+/* Escape a value so it is safe to embed in HTML (avoids injection/invalid markup). */
+function esc(s){
+  return String(s == null ? "" : s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+/* Build the "Need Help? Contact Hotel" block for a hotel detail.
+   Contact details come from the backend (phone/email/website). We never show
+   invented data: if a field is empty we display "Contact details not available"
+   and disable the matching button. Directions always works using lat/lng. */
+function buildHelpBlock(d, h){
+  const phone = (d && d.phone) ? String(d.phone) : "";
+  const email = (d && d.email) ? String(d.email) : "";
+  const website = (d && d.website) ? String(d.website) : "";
+  const address = (d && d.address) ? String(d.address) : (h ? (h.city + ", " + h.state) : "");
+  const orig = esc(address);
+  const dirUrl = (typeof h.latitude === "number" && typeof h.longitude === "number")
+    ? `https://www.google.com/maps/dir/?api=1&destination=${h.latitude},${h.longitude}`
+    : `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(h.name + ", " + h.city)}`;
+
+  const callBtn = phone
+    ? `<a class="nx-help-btn" href="tel:${esc(phone)}" aria-label="Call ${esc(h.name)} by phone">📞 Call Hotel</a>`
+    : `<span class="nx-help-btn disabled" role="button" aria-disabled="true" tabindex="-1">📞 Call Hotel</span>`;
+  const emailBtn = email
+    ? `<a class="nx-help-btn" href="mailto:${esc(email)}" aria-label="Email ${esc(h.name)}">✉️ Email Hotel</a>`
+    : `<span class="nx-help-btn disabled" role="button" aria-disabled="true" tabindex="-1">✉️ Email Hotel</span>`;
+  const webBtn = website
+    ? `<a class="nx-help-btn" href="${esc(website)}" target="_blank" rel="noopener noreferrer" aria-label="Open the website of ${esc(h.name)} in a new tab">🌐 Visit Website</a>`
+    : `<span class="nx-help-btn disabled" role="button" aria-disabled="true" tabindex="-1">🌐 Visit Website</span>`;
+
+  return `
+    <div class="info-item full nx-help" role="region" aria-label="Need help? Contact the hotel">
+      <div class="nx-h">🆘 Need Help? Contact Hotel</div>
+      <p class="nx-help-intro">For urgent assistance or questions about accessibility, availability or your stay, reach the hotel directly. If a field shows "not available", this hotel has not provided verified contact details.</p>
+      <div class="nx-help-rows">
+        <div class="nx-help-row"><span class="nx-help-label">📞 Phone</span><span class="nx-help-val">${phone ? esc(phone) : "Contact details not available"}</span></div>
+        <div class="nx-help-row"><span class="nx-help-label">✉️ Email</span><span class="nx-help-val">${email ? esc(email) : "Contact details not available"}</span></div>
+        <div class="nx-help-row"><span class="nx-help-label">🌐 Website</span><span class="nx-help-val">${website ? esc(website) : "Contact details not available"}</span></div>
+        <div class="nx-help-row"><span class="nx-help-label">📍 Address</span><span class="nx-help-val">${orig}</span></div>
+      </div>
+      <div class="nx-help-btns">
+        ${callBtn}
+        ${emailBtn}
+        ${webBtn}
+        <a class="nx-help-btn secondary" href="${dirUrl}" target="_blank" rel="noopener noreferrer" aria-label="Get directions to ${esc(h.name)} on Google Maps">🗺️ Get Directions</a>
+      </div>
+      <p class="nx-help-note">🗺️ Directions open Google Maps using this hotel's exact location.</p>
+    </div>`;
+}
+
+/* ---------- detail modal (overrides hardcoded modal) ---------- */
+async function openHotel(id) {
+  const h = hotels.find(x => x.id === id);
+  if (!h) return;
+  window.currentHotel = h;
+
+  // Fetch the rich detail (rooms, food menu, nearby places/hospitals/restaurants/
+  // transport, full accessibility, description) the first time this hotel is opened.
+  if (!h._dd || !h._dd.rooms) {
+    try {
+      const r = await fetch("/api/hotels/" + id);
+      if (r.ok) {
+        const detail = await r.json();
+        h._dd = detail;
+        h.latitude = detail.latitude;
+        h.longitude = detail.longitude;
+        const tr = detail.nearby_transport || [];
+        const dAt = (t, fb) => { const x = tr.find(y => (y.type || "").toLowerCase().indexOf(t) !== -1); return x ? x.distance_km : fb; };
+        h.airportDistance = dAt("airport", h.airportDistance);
+        h.stationDistance = dAt("railway", h.stationDistance);
+        h.attractionDistance = (detail.nearby_places && detail.nearby_places[0] && detail.nearby_places[0].distance_km) || h.attractionDistance;
+      }
+    } catch (e) { console.error("detail fetch failed", e); }
+  }
+
+  const d = h._dd || h;
+  const rooms = d.rooms || [];
+  let room = rooms.find(r => (r.type || "").toLowerCase().indexOf("access") !== -1) || rooms[0] || { type: "Standard", price_inr: h.price, beds: "1 Queen", guests: 2 };
+  window.currentRoom = room;
+
+  document.getElementById("modalName").textContent = h.name;
+  document.getElementById("modalLocation").textContent = `📍 ${h.city} • ⭐ ${h.rating} • ${h.type} • ${d.check_in || "14:00"} in / ${d.check_out || "12:00"} out`;
+  document.getElementById("modalPrice").textContent = money(room.price_inr);
+  document.getElementById("modalTax").textContent = "Included";
+  document.getElementById("modalTotal").textContent = money(room.price_inr);
+
+  const acc = d.accessibility || {};
+  const accKeys = [
+    ["wheelchair_accessible", "♿ Wheelchair Access"], ["elevator", "🛗 Lift / Elevator"],
+    ["lifts_ramps", "♿ Ramps"], ["accessible_bathrooms", "🚿 Accessible Bathroom"],
+    ["accessible_rooms", "🚪 Accessible Room"], ["staff_assistance", "🧑‍🤝‍🧑 Staff Assistance"],
+    ["accessible_parking", "🅿️ Accessible Parking"], ["braille_signage", "⠿ Braille Signage"],
+    ["hearing_loop", "🦻 Hearing Loop"], ["visual_alarms", "🔔 Visual Alarms"],
+    ["service_animals_welcome", "🐕 Service Animals Welcome"], ["guide_dog_friendly", "🦮 Guide Dogs Welcome"],
+    ["low_vision_support", "👁️ Low Vision Support"], ["wheelchair_rental", "♿ Wheelchair Rental"],
+    ["emergency_exit_ramp", "🚪 Emergency Exit Ramp"], ["wide_corridors", "🚶 Wide Corridors"]
+  ];
+  const accRows = accKeys.map(([k, l]) =>
+    `<div class="cell"><span>${l}</span><span class="${acc[k] ? "nx-yes" : "nx-no"}">${acc[k] ? "Yes" : "No"}</span></div>`
+  ).join("");
+
+  const roomOpts = rooms.map(r =>
+    `<div class="info-item room-opt" data-room="${r.type}" role="button" tabindex="0" onclick="selectRoom('${r.type}')">
+        <strong>${r.type}</strong>
+        <div class="nx-sub">${r.beds} · up to ${r.guests} guests</div>
+        <span class="rp">${money(r.price_inr)} <small>(${_usd(r.price_inr)})</small></span>
+     </div>`
+  ).join("") || `<div class="info-item full">Standard room · <span class="rp">${money(h.price)}</span></div>`;
+
+  const menu = (d.food_menu || []).map(cat => `
+      <div class="nx-menu-cat">
+        <h4>${cat.category}</h4>
+        ${(cat.items || []).map(i =>
+          `<div class="nx-menu-item"><span><span class="${i.veg ? "nx-yes" : "nx-no"}">●</span> ${i.name}</span><span>${money(i.price_inr)} <small style="color:#2563eb">(${_usd(i.price_inr)})</small></span></div>`
+        ).join("")}
+      </div>`
+  ).join("") || "<p class='nx-sub'>Sample menu available at the hotel.</p>";
+
+  const nearRow = (list) => (list || []).map(n =>
+    `<div class="nx-near"><span>${n.name}</span><span class="d">${n.distance_km} km</span></div>`
+  ).join("") || "<p class='nx-sub'>—</p>";
+
+  const googleEmbed = getGoogleEmbedUrl(h);
+  const googleDir = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(h.name + ", " + h.city)}`;
+  const coordText = (typeof h.latitude === "number" && typeof h.longitude === "number") ? `${h.city} (${h.latitude.toFixed(4)}, ${h.longitude.toFixed(4)})` : h.city;
+
+  document.getElementById("modalInfo").innerHTML = `
+    <img class="nx-photo" src="${h.image}" alt="${h.name}" />
+    <div class="info-item full"><div class="nx-h">About this hotel</div>
+      <p style="font-size:13px;color:#334155;margin:0">${d.description || ""}</p>
+      ${d.badge ? `<div class="nx-sub">⭐ ${d.badge} · ${h.rating} · ${h.stars}-star ${h.type}</div>` : ""}
+    </div>
+
+    ${buildHelpBlock(d, h)}
+
+    <div class="info-item full"><div class="nx-h">📍 Location map</div>
+      <iframe src="${googleEmbed}" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" style="width:100%;height:300px;border:0;border-radius:12px;background:#e5e7eb"></iframe>
+      <p class="nx-sub">📍 ${coordText}</p>
+      <a class="nx-map-btn" target="_blank" rel="noopener" href="${getHotelMapUrl(h)}">🗺️ Open in Google Maps</a>
+      <a class="nx-map-btn" target="_blank" rel="noopener" href="${googleDir}">🧭 Directions</a>
+    </div>
+
+    <div class="info-item full"><div class="nx-h">♿ Accessibility features</div>
+      <div class="nx-grid">${accRows}</div>
+    </div>
+
+    <div class="info-item full"><div class="nx-h">🛏️ Rooms — tap to select &amp; book</div>
+      <div class="nx-grid">${roomOpts}</div>
+    </div>
+
+    <div class="info-item full"><div class="nx-h">🍽️ Food menu (INR / USD)</div>${menu}</div>
+
+    <div class="info-item full"><div class="nx-h">🏛️ Nearby famous places</div>${nearRow(d.nearby_places)}</div>
+    <div class="info-item full"><div class="nx-h">🏥 Hospitals</div>${nearRow(d.nearby_hospitals)}</div>
+    <div class="info-item full"><div class="nx-h">🍽️ Restaurants</div>${nearRow(d.nearby_restaurants)}</div>
+    <div class="info-item full"><div class="nx-h">🚆 Nearby transport</div>${nearRow(d.nearby_transport)}</div>
+  `;
+
+  // Bind room selection
+  document.querySelectorAll("#modalInfo .room-opt").forEach(el => {
+    el.addEventListener("click", () => selectRoom(el.dataset.room));
+    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectRoom(el.dataset.room); } });
+  });
+
+  document.getElementById("hotelModal").classList.add("show");
+}
+
+/* ---------- room selection ---------- */
+function selectRoom(roomType) {
+  const h = window.currentHotel;
+  if (!h) return;
+  const d = h._dd || h;
+  const room = (d.rooms || []).find(r => r.type === roomType) || d.rooms[0];
+  window.currentRoom = room;
+  document.getElementById("modalPrice").textContent = money(room.price_inr);
+  document.getElementById("modalTotal").textContent = money(room.price_inr);
+  document.querySelectorAll("#modalInfo .room-opt").forEach(el => el.classList.toggle("sel", el.dataset.room === roomType));
+}
+
+/* ---------- booking amount uses selected room ---------- */
+function getBookingAmounts() {
+  if (!window.currentHotel) return { room: 0, tax: 0, total: 0, nights: 1 };
+  const h = window.currentHotel;
+  const room = window.currentRoom ||
+    (h._dd && h._dd.rooms && (h._dd.rooms.find(r => (r.type||"").toLowerCase().indexOf("access") !== -1) || h._dd.rooms[0])) ||
+    { price_inr: h.price };
+  const ci = document.getElementById("checkin")?.value;
+  const co = document.getElementById("checkout")?.value;
+  let nights = 1;
+  if (ci && co) {
+    const a = new Date(ci + "T00:00:00"), b = new Date(co + "T00:00:00");
+    const diff = Math.ceil((b - a) / 86400000);
+    if (diff > 0) nights = diff;
+  }
+  const price = Number(room.price_inr || h.price) * nights;
+  return { room: price, tax: 0, total: price, nights };
+}
+
+/* ---------- payment -> create booking on backend + show blueprint ---------- */
+async function startRealPayment() {
+  if (!window.currentHotel) { showPaymentStatus("Please select a hotel first.", "error"); return; }
+  const name = document.getElementById("payName").value.trim();
+  const email = document.getElementById("payEmail").value.trim();
+  const phone = document.getElementById("payPhone").value.replace(/\D/g, "");
+  if (!name || !email || phone.length !== 10) {
+    showPaymentStatus("Please enter your name, a valid email and a 10-digit mobile number.", "error");
+    return;
+  }
+  const h = window.currentHotel;
+  const room = window.currentRoom || (h._dd && h._dd.rooms && h._dd.rooms[0]) || { type: "Standard" };
+  const ci = document.getElementById("checkin")?.value || "";
+  const co = document.getElementById("checkout")?.value || "";
+  const gSel = document.getElementById("guests")?.value;
+  const guests = gSel ? Number(String(gSel).split(" ")[0]) || 2 : 2;
+
+  showPaymentStatus("Creating your booking…", "ok");
+  try {
+    const res = await fetch("/api/bookings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ hotel_id: h.id, room_type: room.type, guest_name: name, guest_email: email, guest_phone: phone, check_in: ci, check_out: co, guests })
+    });
+    const data = await res.json();
+    if (!res.ok) { showPaymentStatus(data.error || "Booking failed. Please try again.", "error"); return; }
+    const b = data.booking;
+    const bookings = JSON.parse(localStorage.getItem("nexoraBookings") || "[]");
+    bookings.push({ id: b.ref, hotel: b.hotel_name, city: b.city, room: b.room_type, email, amount: b.price_inr, nights: b.nights, date: new Date().toLocaleString(), blueprint: data.blueprint_url });
+    localStorage.setItem("nexoraBookings", JSON.stringify(bookings));
+    closeExtra("paymentModal");
+    closeModal();
+    showNexoraConfirmation(data);
+  } catch (e) {
+    console.error(e);
+    showPaymentStatus("Network error. Please try again.", "error");
+  }
+}
+
+function showNexoraConfirmation(data) {
+  const b = data.booking;
+  showSpecial(`
+    <h2>✅ Booking Confirmed!</h2>
+    <div class="nx-attn">Booking reference: <strong>${b.ref}</strong></div>
+    <p style="font-size:14px;color:#334155">
+      Thank you, ${b.guest_name}. Your accessible stay at <strong>${b.hotel_name}</strong> (${b.city})
+      is booked for <strong>${b.room_type}</strong> · ${b.nights} night${b.nights > 1 ? "s" : ""} ·
+      <strong>${money(b.price_inr)}</strong> (≈ ${_usd(b.price_inr)}).
+    </p>
+    <div class="nx-attn">🗺️ Your accessibility blueprint is ready below.</div>
+    <div class="blueprint-box">
+      <img src="${data.blueprint_url}" alt="Accessibility blueprint of ${b.hotel_name}" />
+      <p style="text-align:center;font-size:13px">
+        <a href="${data.blueprint_url}" target="_blank" rel="noopener" style="color:#2563eb;font-weight:700">⬇️ Download / open blueprint (SVG)</a>
+      </p>
+    </div>
+    <p style="font-size:12px;color:#64748b;margin-top:8px">This is a demo booking. Payments via Razorpay are not configured, so no real charge occurs.</p>
+  `);
+  if (typeof updateDashboard === "function") updateDashboard();
+}
+
+/* ---------- keep currency & price labels refreshed from live rate ---------- */
+const _origRenderHotels = renderHotels;
+renderHotels = function () {
+  _origRenderHotels();
+  const el = document.getElementById("priceValue");
+  if (el && window.USD_PER_INR) {
+    el.textContent = money(Number(document.getElementById("priceRange").value));
+  }
+};
+
+/* ---------- null-safe notifications & helpers ---------- */
+function notifyUser(msg) {
+  let n = document.getElementById("notify");
+  if (!n) {
+    n = document.createElement("div");
+    n.id = "notify";
+    n.className = "notify";
+    n.style.cssText = "position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#0f172a;color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;z-index:99999;box-shadow:0 10px 30px rgba(0,0,0,.3);opacity:0;transition:.3s;";
+    document.body.appendChild(n);
+  }
+  n.textContent = msg;
+  n.style.opacity = "1";
+  clearTimeout(window.__nxNotifyT);
+  window.__nxNotifyT = setTimeout(() => { n.style.opacity = "0"; }, 3200);
+}
+
+/* ---------- aliases used by the redesign ---------- */
+function openDashboard() { openNexoraDashboard(); }
+function showHotel(id) { openHotel(id); }
+function switchAuthMode() { setAuthMode(nexoraAuthMode === "signup" ? "login" : "signup"); }
+function openAI() {
+  showSpecial(`<h2>🤖 AI Hotel Recommendation</h2>
+    <p>Tell NEXORA what you need and get a ranked list of accessible, great-value stays.</p>
+    <div class="form-grid">
+      <select id="aiBudget"><option value="budget">Under ₹3,500</option><option value="mid">Under ₹8,000</option><option value="premium">Under ₹50,000</option></select>
+      <select id="aiNeed"><option value="any">Any need</option><option value="access">Accessibility</option><option value="family">Family</option><option value="business">Business</option><option value="resort">Resort</option></select>
+      <select id="aiFacility"><option value="wifi">Wi-Fi</option><option value="pool">Pool</option><option value="breakfast">Breakfast</option><option value="parking">Parking</option></select>
+    </div>
+    <button class="book-now" style="margin-top:14px" onclick="getRecommendation()">✨ Recommend</button>
+    <div id="aiResult"></div>`);
+}
+function openApiInfo() {
+  showSpecial(`<h2>🔗 NEXORA API</h2>
+    <p>This site runs on a Flask backend that serves hotel, booking and blueprint data.</p>
+    <ul style="line-height:1.9;font-size:14px">
+      <li><code>GET /api/hotels</code> — all hotels with accessibility, rooms, food menu &amp; nearby places</li>
+      <li><code>GET /api/hotels/&lt;id&gt;</code> — single hotel detail</li>
+      <li><code>POST /api/bookings</code> — create a booking</li>
+      <li><code>GET /api/blueprint/&lt;ref&gt;.svg</code> — accessibility blueprint</li>
+      <li><code>GET /health</code> — service status</li>
+    </ul>`);
+}
+function openReviews(id) {
+  const h = hotels.find(x => x.id === id);
+  if (!h) return;
+  showSpecial(`<h2>⭐ Reviews — ${h.name}</h2>
+    <p>Rating: <strong>${h.rating}/5</strong> from ${h.reviews.toLocaleString()} verified guests.</p>
+    <div class="review"><strong>Anita <span class="review-stars">★★★★★</span></strong><span>Great location and very clean, accessible rooms.</span></div>
+    <div class="review"><strong>Rahul <span class="review-stars">★★★★★</span></strong><span>Lifts and ramps were well-maintained. Helpful staff.</span></div>
+    <div class="review"><strong>Priya <span class="review-stars">★★★★</span></strong><span>Nearby restaurants and good value for money.</span></div>`);
+}
+function getRecommendation() {
+  const budgetEl = document.getElementById("aiBudget");
+  const needEl = document.getElementById("aiNeed");
+  const facEl = document.getElementById("aiFacility");
+  const out = document.getElementById("aiResult");
+  if (!budgetEl || !out) return;
+  let max = budgetEl.value === "budget" ? 3500 : budgetEl.value === "mid" ? 8000 : 50000;
+  const need = needEl ? needEl.value : "any";
+  const fac = facEl ? facEl.value : "wifi";
+  let list = hotels.filter(h => h.price <= max && h.rating >= 4);
+  if (need === "access") list = list.filter(h => h.wheelchair && h.elevator && h.accessibleRoom);
+  else if (need === "family") list = list.filter(h => h.type === "Family");
+  else if (need === "business") list = list.filter(h => h.type === "Business");
+  else if (need === "resort") list = list.filter(h => h.type === "Resort");
+  list = list.filter(h => h[fac]).sort((a, b) => b.rating - a.rating).slice(0, 5);
+  out.innerHTML = list.length
+    ? `<h3>✨ Recommended for you</h3>` + list.map(h => `<div class="review"><strong>${h.name}</strong><span>📍 ${h.city} • ⭐ ${h.rating} • ${money(h.price)}/night</span></div>`).join("")
+    : "<p>No exact match. Try changing your preferences.</p>";
+}
+</script>
+
+
+</html>
